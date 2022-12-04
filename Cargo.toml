@@ -1,0 +1,19 @@
+[workspace]
+members = [
+    "global",
+    "utils",
+    "year-2022",
+]
+
+[workspace.package]
+description = "Advent of Code proposition of solutions with Rust language."
+authors = ["Swelio <swelio.github@outlook.com>"]
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+keywords = ["education", "advent-of-code"]
+repository = "https://github.com/Swelio/aoc-rs.git"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[workspace.dependencies]
