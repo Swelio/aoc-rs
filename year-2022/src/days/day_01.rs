@@ -6,9 +6,9 @@ use std::io::{BufRead, BufReader, Read};
 
 use utils::{CodeSolution, SantaError};
 
-pub struct DayOne;
+pub struct DailySolution;
 
-impl CodeSolution for DayOne {
+impl CodeSolution for DailySolution {
     fn run<I>(input: I) -> Result<(), Box<dyn Error>>
     where
         I: Read,

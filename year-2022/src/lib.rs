@@ -12,7 +12,8 @@ where
     I: Read,
 {
     match day_number {
-        1 => days::day_01::DayOne::run(input),
+        1 => days::day_01::DailySolution::run(input),
+        2 => days::day_02::DailySolution::run(input),
         _ if 0 < day_number && day_number <= 25 => todo!(),
         _ => unreachable!(),
     }
