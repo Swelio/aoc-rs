@@ -1,7 +1,7 @@
 #![deny(clippy::all)]
 
 use std::fmt::{Display, Formatter};
-use std::io::Read;
+use std::io::{Read, Seek};
 
 /// Code solution of a day.
 pub trait CodeSolution {
@@ -9,7 +9,7 @@ pub trait CodeSolution {
     /// As no output is expected, it must display the result by itself.
     fn run<I>(input: I) -> Result<(), Box<dyn std::error::Error>>
     where
-        I: Read;
+        I: Read + Seek;
 }
 
 /// Generic error which may occur during puzzle resolution.

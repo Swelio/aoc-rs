@@ -1,7 +1,7 @@
 #![deny(clippy::all)]
 
 use std::fs;
-use std::io::Read;
+use std::io::{Read, Seek};
 
 use utils::CodeSolution;
 
@@ -9,11 +9,12 @@ mod days;
 
 pub fn run_solution<I>(day_number: u8, input: I) -> Result<(), Box<dyn std::error::Error>>
 where
-    I: Read,
+    I: Read + Seek,
 {
     match day_number {
         1 => days::day_01::DailySolution::run(input),
         2 => days::day_02::DailySolution::run(input),
+        3 => days::day_03::DailySolution::run(input),
         _ if 0 < day_number && day_number <= 25 => todo!(),
         _ => unreachable!(),
     }

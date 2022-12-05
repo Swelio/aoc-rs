@@ -2,7 +2,7 @@
 
 use std::cmp::Reverse;
 use std::error::Error;
-use std::io::{BufRead, BufReader, Read};
+use std::io::{BufRead, BufReader, Read, Seek};
 
 use utils::{CodeSolution, SantaError};
 
@@ -11,7 +11,7 @@ pub struct DailySolution;
 impl CodeSolution for DailySolution {
     fn run<I>(input: I) -> Result<(), Box<dyn Error>>
     where
-        I: Read,
+        I: Read + Seek,
     {
         let calories = collect_calories(BufReader::new(input))?;
         let max_calories = get_top_calories(&calories, 1)?;

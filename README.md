@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 [![Last commit](https://img.shields.io/github/last-commit/Swelio/aoc-rs)](https://github.com/Swelio/aoc-rs/commits/main)
 [![Tests status](https://img.shields.io/github/workflow/status/Swelio/aoc-rs/Tests/main)](https://github.com/Swelio/aoc-rs/actions/workflows/tests.yml)
-[![Days of 2022](https://img.shields.io/badge/days%20of%202022-2-red)](year-2022)
+[![Days of 2022](https://img.shields.io/badge/days%20of%202022-3-orange)](year-2022)
 
 ## About
 

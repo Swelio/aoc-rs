@@ -2,7 +2,7 @@
 
 use std::cmp::Ordering;
 use std::error::Error;
-use std::io::{BufRead, BufReader, Cursor, Read};
+use std::io::{BufRead, BufReader, Read, Seek, SeekFrom};
 
 use utils::{CodeSolution, SantaError};
 
@@ -13,16 +13,14 @@ pub struct DailySolution;
 impl CodeSolution for DailySolution {
     fn run<I>(mut input: I) -> Result<(), Box<dyn Error>>
     where
-        I: Read,
+        I: Read + Seek,
     {
-        let mut full_input = String::new();
-        input
-            .read_to_string(&mut full_input)
-            .expect("Invalid input.");
-        let strategy_score = part_1(BufReader::new(Cursor::new(full_input.clone())))?;
+        let strategy_score = part_1(BufReader::new(&mut input))?;
         println!("Total score of the strategy is: {}", strategy_score);
 
-        let full_score = part_2(BufReader::new(Cursor::new(full_input)))?;
+        input.seek(SeekFrom::Start(0))?;
+
+        let full_score = part_2(BufReader::new(input))?;
         println!("Full score of the strategy is: {}", full_score);
 
         Ok(())
