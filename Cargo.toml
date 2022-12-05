@@ -17,3 +17,5 @@ repository = "https://github.com/Swelio/aoc-rs.git"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [workspace.dependencies]
+clap = { version = "4.0.29", features = ["default", "derive"] }
+utils = { path = './utils' }
