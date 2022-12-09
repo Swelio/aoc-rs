@@ -133,6 +133,7 @@ CrZsJsPPZsGzwwsLwLmpwMDw"#;
         let priority_sum = part_1(BufReader::new(input_cursor)).unwrap();
         assert_eq!(priority_sum, 157);
     }
+
     #[test]
     fn test_part_2() {
         let input_cursor = Cursor::new(SAMPLE_INPUT);
