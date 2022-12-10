@@ -73,7 +73,7 @@ where
 
 /// Check if all characters of the chunk are unique
 fn chunk_all_unique(chunk: &[char]) -> bool {
-    let chunk_set: HashSet<char> = chunk.into_iter().copied().collect();
+    let chunk_set: HashSet<char> = chunk.iter().copied().collect();
 
     chunk.len() == chunk_set.len()
 }
