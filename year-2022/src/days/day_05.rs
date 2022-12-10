@@ -117,11 +117,10 @@ fn move_crate_new_crane(
 #[cfg(test)]
 mod test_day {
     use std::io::{BufReader, Cursor};
-    use std::sync::Once;
+
+    use utils::setup_log;
 
     use super::*;
-
-    static LOG_INIT: Once = Once::new();
 
     const SAMPLE_INPUT: &str = r#"    [D]
 [N] [C]
@@ -133,13 +132,9 @@ move 3 from 1 to 3
 move 2 from 2 to 1
 move 1 from 1 to 2"#;
 
-    fn setup() {
-        LOG_INIT.call_once(env_logger::init);
-    }
-
     #[test]
     fn test_stack_parsing() {
-        setup();
+        setup_log();
 
         let input_cursor = Cursor::new(SAMPLE_INPUT);
         let stacks = parse_stacks(BufReader::new(input_cursor)).unwrap();
@@ -155,7 +150,7 @@ move 1 from 1 to 2"#;
 
     #[test]
     fn test_part_1() {
-        setup();
+        setup_log();
 
         let input_cursor = Cursor::new(SAMPLE_INPUT);
         let mut buf_input = BufReader::new(input_cursor);
@@ -166,7 +161,7 @@ move 1 from 1 to 2"#;
 
     #[test]
     fn test_part_2() {
-        setup();
+        setup_log();
 
         let input_cursor = Cursor::new(SAMPLE_INPUT);
         let mut buf_input = BufReader::new(input_cursor);

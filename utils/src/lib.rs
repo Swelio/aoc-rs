@@ -2,6 +2,13 @@
 
 use std::fmt::{Display, Formatter};
 use std::io::{Read, Seek};
+use std::sync::Once;
+
+static LOG_INIT: Once = Once::new();
+
+pub fn setup_log() {
+    LOG_INIT.call_once(env_logger::init);
+}
 
 /// Code solution of a day.
 pub trait CodeSolution {
