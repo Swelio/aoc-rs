@@ -29,7 +29,7 @@ impl CodeSolution for DailySolution {
         // Reset input cursor just after the stacks initialization
         buf_input.seek(SeekFrom::Start(start_seek))?;
 
-        let top_crates = part_2(stacks.clone(), &mut buf_input)?;
+        let top_crates = part_2(stacks, &mut buf_input)?;
         println!("Top crates for CrateMove 9001 are: {}", top_crates);
 
         Ok(())

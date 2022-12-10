@@ -26,7 +26,7 @@ where
         }
 
         stacks_input.push_str(&line);
-        stacks_input.push_str("\n");
+        stacks_input.push('\n');
     }
 
     let stack_pairs = StackParser::parse(Rule::stack, &stacks_input)?
@@ -53,7 +53,7 @@ where
 
                     match stack_crate.as_rule() {
                         Rule::stack_crate_id => {
-                            entry.push(stack_crate.as_str().chars().nth(0).unwrap())
+                            entry.push(stack_crate.as_str().chars().next().unwrap())
                         }
                         Rule::stack_empty_crate => continue,
                         _ => unreachable!(),
