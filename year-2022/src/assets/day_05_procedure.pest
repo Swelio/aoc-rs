@@ -1,0 +1,13 @@
+procedure = {
+	move_line ~ (NEWLINE ~ move_line)*
+}
+move_line = {
+	^"move" ~ moved_count ~ ^"from" ~ src_stack ~ ^"to" ~ dst_stack
+}
+
+moved_count = @{ ASCII_DIGIT+ }
+src_stack = @{ stack_id }
+dst_stack = @{ stack_id }
+stack_id = @{ ASCII_DIGIT+ }
+
+WHITESPACE = _{ " " }

@@ -1,0 +1,14 @@
+stack = {
+	stack_crate_line ~ (NEWLINE ~ stack_crate_line)*
+    ~ NEWLINE ~ stack_id_line
+}
+
+stack_id_line = ${ stack_id ~ (" " ~ stack_id)* ~ NEWLINE }
+
+stack_crate_line = ${ stack_crate ~ (" " ~ stack_crate)* }
+
+stack_crate = _{ (stack_empty_crate | "[" ~ stack_crate_id ~ "]") }
+stack_empty_crate = @{ " "{3} }
+stack_crate_id = { ASCII_ALPHA_UPPER }
+
+stack_id = ${ " " ~ ASCII_DIGIT+ ~ " "? }
