@@ -1,0 +1,18 @@
+command_process = {
+	command_input ~ (NEWLINE ~ command_output)?
+}
+command_input = { command ~ command_args? }
+command = @{ ASCII_ALPHA+ }
+command_args = ${ command_arg ~ (" " ~ command_arg)* }
+command_arg = @{ (ASCII_ALPHANUMERIC | "/" | ".." )+ }
+
+command_output = { ls_output }
+
+ls_output = { listed_path ~ (NEWLINE ~ listed_path)* }
+listed_path = { file_path | dir_path }
+file_path = { path_size ~ path }
+dir_path = { ^"dir" ~ path }
+path_size = @{ ASCII_DIGIT+ }
+path = @{ (ASCII_ALPHANUMERIC | ".")+ }
+
+WHITESPACE = _{ " " }

@@ -6,6 +6,7 @@ use std::io::{Read, Seek};
 use utils::CodeSolution;
 
 mod day_05_parsers;
+mod day_07_parsers;
 mod days;
 
 pub fn run_solution<I>(day_number: u8, input: I) -> Result<(), Box<dyn std::error::Error>>
@@ -19,6 +20,7 @@ where
         4 => days::day_04::DailySolution::run(input),
         5 => days::day_05::DailySolution::run(input),
         6 => days::day_06::DailySolution::run(input),
+        7 => days::day_07::DailySolution::run(input),
         _ if 0 < day_number && day_number <= 25 => todo!(),
         _ => unreachable!(),
     }
