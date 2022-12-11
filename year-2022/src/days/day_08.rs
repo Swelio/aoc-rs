@@ -123,7 +123,7 @@ impl Forest {
         let mut trees = Vec::new();
 
         for (row_num, row) in self.grid.iter().enumerate() {
-            for column_num in 0..row.len() {
+            for (column_num, _) in row.iter().enumerate() {
                 if self.tree_is_visible(row_num, column_num) {
                     trees.push(row[column_num]);
                 }
