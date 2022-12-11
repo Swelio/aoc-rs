@@ -1,5 +1,6 @@
 //! Instructions are there: https://adventofcode.com/2022/day/9
 
+use std::cmp::Ordering;
 use std::collections::HashSet;
 use std::error::Error;
 use std::io::{BufRead, BufReader, Read, Seek, SeekFrom};
@@ -148,16 +149,16 @@ impl KnotPosition {
             return;
         }
 
-        if head.x > self.x {
-            self.x += 1;
-        } else if head.x < self.x {
-            self.x -= 1;
+        match head.x.cmp(&self.x) {
+            Ordering::Less => self.x -= 1,
+            Ordering::Equal => {}
+            Ordering::Greater => self.x += 1,
         }
 
-        if head.y > self.y {
-            self.y += 1;
-        } else if head.y < self.y {
-            self.y -= 1;
+        match head.y.cmp(&self.y) {
+            Ordering::Less => self.y -= 1,
+            Ordering::Equal => {}
+            Ordering::Greater => self.y += 1,
         }
     }
 
