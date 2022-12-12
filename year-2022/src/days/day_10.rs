@@ -36,7 +36,7 @@ fn part_1<I>(input: I) -> Result<SignalStrength, Box<dyn Error>>
 where
     I: BufRead,
 {
-    let cpu = CPU::new(input);
+    let cpu = Cpu::new(input);
     let mut total_strength = 0;
 
     for (cycle, register_value) in cpu.into_iter().enumerate().skip(19).step_by(40) {
@@ -54,7 +54,7 @@ fn part_2<I>(input: I) -> Result<String, Box<dyn Error>>
 where
     I: BufRead,
 {
-    let cpu = CPU::new(input);
+    let cpu = Cpu::new(input);
     let mut crt_img = String::new();
 
     for (cycle, sprite_pos) in cpu.into_iter().enumerate().take(240) {
@@ -108,7 +108,7 @@ impl TryFrom<&str> for Instruction {
     }
 }
 
-struct CPU<B>
+struct Cpu<B>
 where
     B: BufRead,
 {
@@ -118,7 +118,7 @@ where
     register: RegisterValue,
 }
 
-impl<B> CPU<B>
+impl<B> Cpu<B>
 where
     B: BufRead,
 {
@@ -164,7 +164,7 @@ where
     }
 }
 
-impl<B> Iterator for CPU<B>
+impl<B> Iterator for Cpu<B>
 where
     B: BufRead,
 {
@@ -197,7 +197,7 @@ mod test_day {
     #[test]
     fn test_cpu() {
         let input_cursor = BufReader::new(Cursor::new(SAMPLE_INPUT));
-        let mut cpu = CPU::new(input_cursor).into_iter();
+        let mut cpu = Cpu::new(input_cursor).into_iter();
 
         assert_eq!(cpu.nth(9).unwrap().unwrap(), 8); // 10th element
         assert_eq!(cpu.nth(0).unwrap().unwrap(), 13); // 11th element
