@@ -1,0 +1,35 @@
+monkey = {
+	^"monkey" ~ ASCII_DIGIT+ ~ ":" ~ NEWLINE
+    ~ monkey_items ~ NEWLINE
+    ~ monkey_operation ~ NEWLINE
+    ~ monkey_test ~ NEWLINE
+    ~ monkey_true ~ NEWLINE
+    ~ monkey_false ~ NEWLINE?
+}
+
+monkey_id = @{ ASCII_DIGIT+ }
+monkey_items = {
+	^"starting items:" ~ (item ~ ("," ~ item)*)?
+}
+monkey_operation = {
+	^"operation:" ~ ^"new" ~ "=" ~ ^"old" ~ operation
+}
+monkey_test = {
+	^"test:" ~ ^"divisible by" ~ test_divisor
+}
+monkey_true = {
+	^"if true:" ~ ^"throw to monkey" ~ monkey_id
+}
+monkey_false = {
+	^"if false:" ~ ^"throw to monkey" ~ monkey_id
+}
+
+item = @{ ASCII_DIGIT+ }
+operation = _{ sum | multiplication | power }
+sum = { "+" ~ modifier }
+multiplication = { "*" ~ modifier }
+power = { "*" ~ ^"old"  }
+modifier = { ASCII_DIGIT+ }
+test_divisor = { ASCII_DIGIT+ }
+
+WHITESPACE = _{ " " | "\t" }

@@ -1,9 +1,10 @@
-use log::debug;
 use std::error::Error;
 use std::io::BufRead;
 
-use crate::day_07_parsers::FileSystem;
+use log::debug;
 use pest::Parser;
+
+use crate::day_07_parsers::FileSystem;
 
 #[derive(pest_derive::Parser)]
 #[grammar = "assets/day_07_cmd.pest"]
