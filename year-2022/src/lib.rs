@@ -26,6 +26,7 @@ where
         9 => days::day_09::DailySolution::run(input),
         10 => days::day_10::DailySolution::run(input),
         11 => days::day_11::DailySolution::run(input),
+        12 => days::day_12::DailySolution::run(input),
         _ if 0 < day_number && day_number <= 25 => todo!(),
         _ => unreachable!(),
     }

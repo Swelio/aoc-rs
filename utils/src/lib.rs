@@ -23,6 +23,7 @@ pub trait CodeSolution {
 #[derive(Clone, Debug)]
 pub enum SantaError {
     InvalidInput(String),
+    NoPathFound,
     UnknownMonkey,
     WrongProcedure(String),
 }
@@ -33,6 +34,7 @@ impl Display for SantaError {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         match self {
             Self::InvalidInput(msg) => write!(f, "Invalid input. Error: {}", msg),
+            Self::NoPathFound => write!(f, "No path was found in the current input."),
             Self::UnknownMonkey => write!(f, "Got an unknown monkey."),
             Self::WrongProcedure(msg) => write!(f, "Wrong procedure. Error: {}", msg),
         }
