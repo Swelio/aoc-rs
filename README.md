@@ -4,7 +4,8 @@
 
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 [![Last commit](https://img.shields.io/github/last-commit/Swelio/aoc-rs)](https://github.com/Swelio/aoc-rs/commits/main)
-[![Tests status](https://img.shields.io/github/workflow/status/Swelio/aoc-rs/Tests/main)](https://github.com/Swelio/aoc-rs/actions/workflows/tests.yml)
+[![Tests status](https://img.shields.io/github/actions/workflow/status/Swelio/aoc-rs/tests.yml?label=tests)](https://github.com/Swelio/aoc-rs/actions/workflows/tests.yml)
+[![Lint status](https://img.shields.io/github/actions/workflow/status/Swelio/aoc-rs/lint.yml?label=lint%20checks)](https://github.com/Swelio/aoc-rs/actions/workflows/lint.yml)
 [![Days of 2022](https://img.shields.io/badge/days%20of%202022-12-blue)](year-2022)
 
 ## About

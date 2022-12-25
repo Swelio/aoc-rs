@@ -197,10 +197,10 @@ mod test_day {
     #[test]
     fn test_cpu() {
         let input_cursor = BufReader::new(Cursor::new(SAMPLE_INPUT));
-        let mut cpu = Cpu::new(input_cursor).into_iter();
+        let mut cpu = Cpu::new(input_cursor);
 
         assert_eq!(cpu.nth(9).unwrap().unwrap(), 8); // 10th element
-        assert_eq!(cpu.nth(0).unwrap().unwrap(), 13); // 11th element
+        assert_eq!(cpu.next().unwrap().unwrap(), 13); // 11th element
         assert_eq!(cpu.nth(8).unwrap().unwrap(), 21); // 20th element
         assert_eq!(cpu.nth(39).unwrap().unwrap(), 19); // 60th element
     }

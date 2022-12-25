@@ -10,14 +10,10 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  quality_checks:
-    name: Build & Test
+  tests:
+    name: Tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Run Clippy
-        run: cargo clippy --verbose
-      - name: Build
-        run: cargo build --verbose
       - name: Run tests
         run: cargo test --verbose
