@@ -1,0 +1,7 @@
+pair = { packet ~ NEWLINE ~ packet }
+
+packet = { list | number }
+list = { "[" ~ (packet ~ ( "," ~ packet )*)* ~ "]" }
+number = { ASCII_DIGIT+ }
+
+WHITESPACE = _{ " " }
