@@ -20,6 +20,7 @@ repository = "https://github.com/Swelio/aoc-rs.git"
 clap = { version = "4.0.29", features = ["default", "derive"] }
 env_logger = "0.10.0"
 log = "0.4.17"
+nom = "7.1.1"
 pest = "2.5.1"
 pest_derive = "2.5.1"
 petgraph = "0.6.2"
