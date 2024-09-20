@@ -1,9 +1,10 @@
 [workspace]
-members = [
-    "global",
-    "utils",
-    "year-2022",
-]
+members = ["global", "utils", "year-2022"]
+resolver = "2"
+
+[workspace.lints]
+clippy = { all = "deny" }
+rust = { unsafe_code = "forbid" }
 
 [workspace.package]
 description = "Advent of Code proposition of solutions with Rust language."
