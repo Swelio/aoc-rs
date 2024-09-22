@@ -1,5 +1,5 @@
 [workspace]
-members = ["year-2022"]
+members = ["aoc-traits", "year-2022"]
 resolver = "2"
 
 [workspace.lints]

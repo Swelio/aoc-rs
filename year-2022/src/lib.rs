@@ -1,5 +1,3 @@
-#![deny(clippy::all)]
-
 use std::fs;
 use std::io::{Read, Seek};
 
