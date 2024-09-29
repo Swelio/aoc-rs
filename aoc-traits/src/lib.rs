@@ -1,6 +1,8 @@
 pub mod executor;
 pub mod solver;
 
+pub use macros::Executor;
+
 pub mod years {
     use macros::generate_year_units;
 

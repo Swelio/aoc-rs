@@ -4,6 +4,18 @@ use nutype::nutype;
 pub struct Identity(Year, Day, Part);
 
 impl Identity {
+    pub fn new(year: Year, day: Day, part: Part) -> Self {
+        Self(year, day, part)
+    }
+
+    pub fn as_tuple(&self) -> (u16, u8, u8) {
+        (
+            self.0.into_inner(),
+            self.1.into_inner(),
+            self.2.into_inner(),
+        )
+    }
+
     pub fn year(&self) -> Year {
         self.0
     }

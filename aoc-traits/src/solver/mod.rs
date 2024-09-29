@@ -1,11 +1,10 @@
-pub mod identity;
-pub(crate) mod request;
+pub(crate) mod raw_input;
 pub(crate) mod solution;
 
-use solution::ChallengeSolution;
+pub use solution::Solution;
 
 /// Challenge solving trait according to the identity of a challenge.
-pub trait Solver<Identity> {
+pub trait Solver<Year, Day, Part> {
     /// Solve the challenge part given the input.
-    fn solve<Input: AsRef<str>>(&self, input: Input) -> ChallengeSolution<Identity>;
+    fn solve<Input: AsRef<str>>(&self, input: Input) -> Solution;
 }

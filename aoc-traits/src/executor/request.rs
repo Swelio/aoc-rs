@@ -1,4 +1,4 @@
-use crate::solver::request::ChallengeRawInput;
+use crate::solver::raw_input::ChallengeRawInput;
 
 use super::identity::Identity;
 

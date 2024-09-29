@@ -1,11 +1,4 @@
-use std::marker::PhantomData;
-
 use nutype::nutype;
 
-pub struct ChallengeSolution<Identity> {
-    challenge: PhantomData<Identity>,
-    solution: Solution,
-}
-
-#[nutype()]
+#[nutype(derive(Debug))]
 pub struct Solution(i64);
