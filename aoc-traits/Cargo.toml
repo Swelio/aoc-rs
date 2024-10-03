@@ -1,6 +1,5 @@
 [package]
 name = "aoc-traits"
-description.workspace = true
 authors.workspace = true
 version.workspace = true
 edition.workspace = true
@@ -12,6 +11,6 @@ repository.workspace = true
 workspace = true
 
 [dependencies]
-macros = { path = "./macros" }
-nutype = { version = "0.5.0", features = ["serde"] }
+aoc-macros.workspace = true
+nutype = { workspace = true, features = ["serde"] }
 serde = { version = "1.0.210", features = ["derive"] }

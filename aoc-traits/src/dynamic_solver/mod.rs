@@ -5,6 +5,6 @@ pub mod solution;
 use request::ChallengeRequest;
 use solution::ChallengeSolution;
 
-pub trait Executor {
+pub trait DynamicSolver {
     fn resolve(&self, request: ChallengeRequest) -> ChallengeSolution;
 }

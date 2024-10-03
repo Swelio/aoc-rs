@@ -1,7 +1,7 @@
-mod derive_executor;
+mod derive_dynamic_solver;
 mod units;
 
-use derive_executor::expand_derive_executor;
+use derive_dynamic_solver::expand_derive_dynamic_solver;
 use units::{day_ident, generate_units, part_ident, year_ident};
 
 #[proc_macro]
@@ -19,7 +19,7 @@ pub fn generate_part_units(_: proc_macro::TokenStream) -> proc_macro::TokenStrea
     generate_units(1..=2, part_ident).into()
 }
 
-#[proc_macro_derive(Executor, attributes(executor))]
-pub fn derive_executor(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
-    expand_derive_executor(input)
+#[proc_macro_derive(DynamicSolver, attributes(solve))]
+pub fn derive_dynamic_solver(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
+    expand_derive_dynamic_solver(input)
 }

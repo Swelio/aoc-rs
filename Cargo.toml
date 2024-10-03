@@ -1,5 +1,5 @@
 [workspace]
-members = ["aoc-traits", "year-2022"]
+members = ["aoc-macros", "aoc-traits", "year-2022"]
 resolver = "2"
 
 [workspace.lints]
@@ -15,6 +15,14 @@ license = "MIT"
 keywords = ["education", "advent-of-code"]
 repository = "https://github.com/Swelio/aoc-rs.git"
 
+[profile.dev.build-override]
+opt-level = 3
+
+[patch.crates-io]
+aoc-macros = { path = "aoc-macros" }
+
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [workspace.dependencies]
+aoc-macros = "*"
+nutype = "0.5.0"
