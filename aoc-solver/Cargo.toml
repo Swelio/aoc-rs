@@ -12,6 +12,7 @@ categories.workspace = true
 [dependencies]
 aoc-traits.workspace = true
 clap = { version = "4.5.19", features = ["derive"] }
+winnow.workspace = true
 
 [lints]
 workspace = true
