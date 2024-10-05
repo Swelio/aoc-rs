@@ -1,10 +1,13 @@
-pub mod identity;
-pub mod request;
-pub mod solution;
+pub use identity::{Day, DayError, Identity, Part, PartError, Year, YearError};
+pub use request::ChallengeRequest;
+pub use solution::ChallengeSolution;
 
-use request::ChallengeRequest;
-use solution::ChallengeSolution;
+mod identity;
+mod request;
+mod solution;
+
+use crate::error::AocResult;
 
 pub trait DynamicSolver {
-    fn resolve(&self, request: ChallengeRequest) -> ChallengeSolution;
+    fn resolve(&self, request: ChallengeRequest) -> AocResult<ChallengeSolution>;
 }

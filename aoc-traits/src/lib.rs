@@ -1,7 +1,11 @@
 pub mod dynamic_solver;
+pub mod error;
 pub mod solver;
 
 pub use aoc_macros::DynamicSolver;
+pub use dynamic_solver::{ChallengeRequest, ChallengeSolution, Day, DynamicSolver, Part, Year};
+pub use error::{AocError, AocResult};
+pub use solver::{Solution, Solver};
 
 pub mod years {
     use aoc_macros::generate_year_units;

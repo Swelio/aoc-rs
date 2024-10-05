@@ -1,5 +1,6 @@
 [package]
-name = "aoc-traits"
+name = "aoc-solver"
+description.workspace = true
 authors.workspace = true
 version.workspace = true
 edition.workspace = true
@@ -8,11 +9,9 @@ keywords.workspace = true
 repository.workspace = true
 categories.workspace = true
 
+[dependencies]
+aoc-traits.workspace = true
+clap = { version = "4.5.19", features = ["derive"] }
+
 [lints]
 workspace = true
-
-[dependencies]
-aoc-macros.workspace = true
-nutype = { workspace = true, features = ["serde"] }
-serde = { version = "1.0.210", features = ["derive"] }
-thiserror.workspace = true

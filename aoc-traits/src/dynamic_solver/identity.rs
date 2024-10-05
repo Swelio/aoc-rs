@@ -31,7 +31,17 @@ impl Identity {
 
 #[nutype(
     validate(greater_or_equal = 2015),
-    derive(Clone, Copy, Debug, Display, Serialize, Deserialize)
+    derive(
+        Clone,
+        Copy,
+        Debug,
+        Display,
+        Serialize,
+        Deserialize,
+        PartialEq,
+        Eq,
+        Hash
+    )
 )]
 pub struct Year(u16);
 

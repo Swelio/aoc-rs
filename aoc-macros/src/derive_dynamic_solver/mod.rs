@@ -17,10 +17,11 @@ pub fn expand_derive_dynamic_solver(input: TokenStream) -> TokenStream {
 
     quote! {
         impl ::aoc_traits::dynamic_solver::DynamicSolver for #dynamic_solver_name {
-            fn resolve(&self, request: ::aoc_traits::dynamic_solver::request::ChallengeRequest) -> ::aoc_traits::dynamic_solver::solution::ChallengeSolution {
-                match request.id().as_tuple() {
+            fn resolve(&self, request: ::aoc_traits::dynamic_solver::ChallengeRequest) -> ::aoc_traits::error::AocResult<::aoc_traits::dynamic_solver::ChallengeSolution> {
+                let challenge_id = request.id();
+                match challenge_id.as_tuple() {
                     #(#expanded_years)*
-                    _ => unimplemented!()
+                    _ => return Err(::aoc_traits::error::AocError::NotImplemented(challenge_id)),
                 }
             }
         }
