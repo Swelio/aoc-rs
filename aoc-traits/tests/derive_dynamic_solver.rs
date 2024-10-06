@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use aoc_traits::{
     days::Day01,
     parts::{Part01, Part02},

@@ -39,7 +39,7 @@ fn expand_day(
 
         quote! {
             (#year, #day, #part) => {
-                let solution = <Self as ::aoc_traits::solver::Solver<#year_name, #day_name, #part_name>>::solve(self, request.input());
+                let solution = <Self as ::aoc_traits::solver::Solver<#year_name, #day_name, #part_name>>::solve(self, request.input())?;
                 Ok(::aoc_traits::dynamic_solver::ChallengeSolution::new(&request, solution))
             },
         }

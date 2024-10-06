@@ -1,4 +1,4 @@
-use crate::solver::raw_input::ChallengeRawInput;
+use crate::solver::ChallengeRawInput;
 
 use super::identity::Identity;
 
@@ -8,11 +8,8 @@ pub struct ChallengeRequest {
 }
 
 impl ChallengeRequest {
-    pub fn new(identity: Identity, input: ChallengeRawInput) -> Self {
-        Self {
-            id: identity,
-            input,
-        }
+    pub fn new(id: Identity, input: ChallengeRawInput) -> Self {
+        Self { id, input }
     }
 
     pub fn id(&self) -> Identity {

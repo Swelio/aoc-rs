@@ -3,7 +3,7 @@ use std::sync::Arc;
 use nutype::nutype;
 
 #[nutype(derive(Clone, AsRef))]
-pub struct ChallengeRawInput(std::sync::Arc<String>);
+pub struct ChallengeRawInput(Arc<String>);
 
 impl AsRef<str> for ChallengeRawInput {
     fn as_ref(&self) -> &str {

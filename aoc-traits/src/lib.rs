@@ -1,8 +1,10 @@
+pub mod challenge_result;
 pub mod dynamic_solver;
 pub mod error;
 pub mod solver;
 
 pub use aoc_macros::DynamicSolver;
+pub use challenge_result::ChallengeResult;
 pub use dynamic_solver::{ChallengeRequest, ChallengeSolution, Day, DynamicSolver, Part, Year};
 pub use error::{AocError, AocResult};
 pub use solver::{ChallengeRawInput, Solution, Solver};

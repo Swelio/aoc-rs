@@ -3,7 +3,7 @@ use std::{
     fmt::{self, Display},
 };
 
-use crate::solver::solution::Solution;
+use crate::solver::Solution;
 
 use super::{identity::Identity, request::ChallengeRequest};
 
@@ -19,6 +19,14 @@ impl ChallengeSolution {
             id: request.id(),
             solution,
         }
+    }
+
+    pub fn id(&self) -> Identity {
+        self.id
+    }
+
+    pub fn solution(&self) -> &Solution {
+        &self.solution
     }
 }
 
