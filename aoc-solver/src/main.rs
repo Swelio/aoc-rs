@@ -1,7 +1,9 @@
-use std::path::PathBuf;
+use std::{collections::HashMap, fs, path::PathBuf, sync::Arc};
 
 use aoc_solver::UniversalSolver;
-use aoc_traits::dynamic_solver::Identity;
+use aoc_traits::{
+    dynamic_solver::Identity, AocResult, ChallengeRawInput, ChallengeRequest, DynamicSolver,
+};
 use clap::Parser;
 use parser::parse_year;
 
@@ -12,13 +14,34 @@ struct Solver {
     challenges: Vec<(Identity, PathBuf)>,
 }
 
-fn main() {
+fn main() -> AocResult<()> {
     let Solver { challenges } = Solver::parse();
-    let solver = {
-        let mut solver = UniversalSolver::default();
-        solver
+    let solver = UniversalSolver::default();
+
+    let mut inputs = HashMap::new();
+    let requests = challenges.iter().map(|(identity, path)| {
+        let raw_input = inputs
+            .entry(path.as_path())
+            .or_insert_with(|| {
+                let content = fs::read_to_string(path).expect("file must exist");
+                ChallengeRawInput::new(Arc::new(content))
+            })
+            .to_owned();
+
+        ChallengeRequest::new(*identity, raw_input)
+    });
+    let solutions = {
+        let mut unordered_solutions = requests
+            .map(|request| solver.resolve(request))
+            .collect::<AocResult<Vec<_>>>()?;
+        unordered_solutions.sort();
+        unordered_solutions
     };
-    let solutions = challenges.into_iter();
+    let json_solutions =
+        serde_json::to_string(&solutions).expect("serialization should always work");
+    print!("{json_solutions}");
+
+    Ok(())
 }
 
 mod parser {

@@ -1,6 +1,10 @@
+use std::fmt::{self, Display};
+
 use nutype::nutype;
 
-#[derive(Clone, Copy, Debug, serde::Serialize, serde::Deserialize)]
+#[derive(
+    Clone, Copy, Debug, serde::Serialize, serde::Deserialize, PartialEq, Eq, PartialOrd, Ord,
+)]
 pub struct Identity(Year, Day, Part);
 
 impl Identity {
@@ -29,6 +33,12 @@ impl Identity {
     }
 }
 
+impl Display for Identity {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{}-{}-{}", self.year(), self.day(), self.part())
+    }
+}
+
 #[nutype(
     validate(greater_or_equal = 2015),
     derive(
@@ -40,19 +50,43 @@ impl Identity {
         Deserialize,
         PartialEq,
         Eq,
-        Hash
+        Hash,
+        PartialOrd,
+        Ord
     )
 )]
 pub struct Year(u16);
 
 #[nutype(
     validate(greater_or_equal = 1, less_or_equal = 31),
-    derive(Clone, Copy, Debug, Display, Serialize, Deserialize)
+    derive(
+        Clone,
+        Copy,
+        Debug,
+        Display,
+        Serialize,
+        Deserialize,
+        PartialEq,
+        Eq,
+        PartialOrd,
+        Ord
+    )
 )]
 pub struct Day(u8);
 
 #[nutype(
     validate(greater_or_equal = 1),
-    derive(Clone, Copy, Debug, Display, Serialize, Deserialize)
+    derive(
+        Clone,
+        Copy,
+        Debug,
+        Display,
+        Serialize,
+        Deserialize,
+        PartialEq,
+        Eq,
+        PartialOrd,
+        Ord
+    )
 )]
 pub struct Part(u8);

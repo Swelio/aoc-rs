@@ -8,6 +8,13 @@ pub struct ChallengeRequest {
 }
 
 impl ChallengeRequest {
+    pub fn new(identity: Identity, input: ChallengeRawInput) -> Self {
+        Self {
+            id: identity,
+            input,
+        }
+    }
+
     pub fn id(&self) -> Identity {
         self.id
     }

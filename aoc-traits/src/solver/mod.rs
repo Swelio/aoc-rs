@@ -1,6 +1,7 @@
 pub(crate) mod raw_input;
 pub(crate) mod solution;
 
+pub use raw_input::ChallengeRawInput;
 pub use solution::Solution;
 
 /// Challenge solving trait according to the identity of a challenge.
