@@ -5,6 +5,7 @@ use aoc_traits::{
     parts::{Part01, Part02},
     solver::{Solution, Solver},
     years::Year2015,
+    AocResult,
 };
 
 #[derive(aoc_traits::DynamicSolver)]
@@ -12,13 +13,13 @@ use aoc_traits::{
 struct MockSolver;
 
 impl Solver<Year2015, Day01, Part01> for MockSolver {
-    fn solve<Input: AsRef<str>>(&self, _input: Input) -> Solution {
+    fn solve<Input: AsRef<str>>(&self, _input: Input) -> AocResult<Solution> {
         todo!()
     }
 }
 
 impl Solver<Year2015, Day01, Part02> for MockSolver {
-    fn solve<Input: AsRef<str>>(&self, _input: Input) -> Solution {
+    fn solve<Input: AsRef<str>>(&self, _input: Input) -> AocResult<Solution> {
         todo!()
     }
 }
