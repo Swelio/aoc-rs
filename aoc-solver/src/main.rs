@@ -2,13 +2,13 @@ use std::{
     collections::{hash_map::Entry, HashMap},
     fs,
     path::{Path, PathBuf},
+    result::Result,
     sync::Arc,
 };
 
 use aoc_solver::UniversalSolver;
 use aoc_traits::{
-    dynamic_solver::Identity, AocResult, ChallengeRawInput, ChallengeRequest, ChallengeResult,
-    DynamicSolver,
+    dynamic_solver::Identity, ChallengeRawInput, ChallengeRequest, ChallengeResult, DynamicSolver,
 };
 use clap::Parser;
 use parser::parse_year;
@@ -20,46 +20,50 @@ struct Solver {
     challenges: Vec<(Identity, PathBuf)>,
 }
 
-fn main() -> AocResult<()> {
+fn main() {
     let Solver { challenges } = Solver::parse();
     let solver = UniversalSolver::default();
     let mut inputs: HashMap<&Path, ChallengeRawInput> = HashMap::new();
 
-    let requests = challenges
-        .iter()
-        .map(|(identity, path)| -> AocResult<ChallengeRequest> {
+    let requests = challenges.iter().map(
+        |(identity, path)| -> Result<ChallengeRequest, ChallengeResult> {
             let raw_input = match inputs.entry(path.as_path()) {
                 Entry::Occupied(occupied_entry) => occupied_entry.get().to_owned(),
                 Entry::Vacant(vacant_entry) => {
-                    let content = fs::read_to_string(path)?;
+                    let content = match fs::read_to_string(path) {
+                        Err(err) => return Err(ChallengeResult::failure(*identity, err.into())),
+                        Ok(content) => content,
+                    };
                     let input = ChallengeRawInput::new(Arc::new(content));
                     vacant_entry.insert(input).to_owned()
                 }
             };
 
             Ok(ChallengeRequest::new(*identity, raw_input))
-        });
+        },
+    );
     let solutions = {
         let mut unordered_solutions = requests
-            .map(|request| -> AocResult<ChallengeResult> {
-                let request = request?;
+            .map(|request| -> ChallengeResult {
+                let request = match request {
+                    Err(failed_preparation) => return failed_preparation,
+                    Ok(request) => request,
+                };
                 let identity = request.id();
                 solver
                     .resolve(request)
                     .map(|solution| {
                         ChallengeResult::success(solution.id(), solution.solution().to_owned())
                     })
-                    .or_else(|err| Ok(ChallengeResult::failure(identity, err)))
+                    .unwrap_or_else(|err| ChallengeResult::failure(identity, err))
             })
-            .collect::<AocResult<Vec<_>>>()?;
+            .collect::<Vec<_>>();
         unordered_solutions.sort();
         unordered_solutions
     };
     let json_solutions =
         serde_json::to_string(&solutions).expect("serialization should always work");
     print!("{json_solutions}");
-
-    Ok(())
 }
 
 mod parser {
