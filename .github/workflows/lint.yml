@@ -22,8 +22,6 @@ jobs:
           override: true
           components: rustfmt,clippy
       - name: Run rustfmt
-        run: cargo +stable fmt -- --check
+        run: cargo fmt -- --check
       - name: Run Clippy
-        run: cargo +stable clippy --verbose -- -D warnings
-      - name: Run Clippy on tests
-        run: cargo +stable clippy --verbose --tests -- -D warnings
+        run: cargo clippy --verbose --all-targets -- -D warnings
