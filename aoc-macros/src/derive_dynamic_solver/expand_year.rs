@@ -22,7 +22,7 @@ pub fn expand_years(
     year_days
         .into_iter()
         .flat_map(move |(year, expected_days)| {
-            day_range().map(move |(day, part)| expand_day(year, day, part, &expected_days))
+            day_range().filter_map(move |(day, part)| expand_day(year, day, part, &expected_days))
         })
 }
 
@@ -31,7 +31,7 @@ fn expand_day(
     day: DayIdx,
     part: PartIdx,
     expected_days: &HashSet<DayIdx>,
-) -> proc_macro2::TokenStream {
+) -> Option<proc_macro2::TokenStream> {
     expected_days.contains(&day).then(|| {
         let year_name = year_ident(year as usize);
         let day_name = day_ident(day as usize);
@@ -43,7 +43,5 @@ fn expand_day(
                 ::aoc_traits::challenge::Solution::new(identity, resolution)
             },
         }
-    }).unwrap_or_else(|| quote! {
-        (#year, #day, #part) => ::aoc_traits::challenge::Solution::new(identity, Err(::aoc_traits::error::AocError::NotImplemented(identity))),
     })
 }
