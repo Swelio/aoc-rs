@@ -1,12 +1,24 @@
 use std::fmt::{self, Display};
 
-use crate::{challenge::identity::Identity, error::AocResult};
+use crate::{
+    challenge::identity::Identity,
+    error::{AocError, AocResult},
+};
 
 use super::Flag;
+
+#[derive(serde::Serialize, serde::Deserialize)]
+#[serde(remote = "AocResult<Flag>")]
+#[serde(tag = "kind")]
+enum SerdeResult {
+    Ok(Flag),
+    Err(AocError),
+}
 
 #[derive(Debug, serde::Serialize, serde::Deserialize)]
 pub struct Solution {
     identity: Identity,
+    #[serde(with = "SerdeResult")]
     resolution: AocResult<Flag>,
 }
 
