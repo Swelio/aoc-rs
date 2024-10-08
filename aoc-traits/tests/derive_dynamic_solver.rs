@@ -1,11 +1,12 @@
 #![allow(dead_code)]
 
 use aoc_traits::{
+    challenge::Flag,
     days::Day01,
+    error::AocResult,
     parts::{Part01, Part02},
-    solver::{Solution, Solver},
     years::Year2015,
-    AocResult,
+    Solver,
 };
 
 #[derive(aoc_traits::DynamicSolver)]
@@ -13,13 +14,13 @@ use aoc_traits::{
 struct MockSolver;
 
 impl Solver<Year2015, Day01, Part01> for MockSolver {
-    fn solve<Input: AsRef<str>>(&self, _input: Input) -> AocResult<Solution> {
+    fn solve<Input: AsRef<str>>(&self, _input: Input) -> AocResult<Flag> {
         todo!()
     }
 }
 
 impl Solver<Year2015, Day01, Part02> for MockSolver {
-    fn solve<Input: AsRef<str>>(&self, _input: Input) -> AocResult<Solution> {
+    fn solve<Input: AsRef<str>>(&self, _input: Input) -> AocResult<Flag> {
         todo!()
     }
 }

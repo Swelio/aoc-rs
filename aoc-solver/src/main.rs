@@ -3,12 +3,12 @@ use std::{
     fs,
     path::{Path, PathBuf},
     result::Result,
-    sync::Arc,
 };
 
 use aoc_solver::UniversalSolver;
 use aoc_traits::{
-    dynamic_solver::Identity, ChallengeRawInput, ChallengeRequest, ChallengeResult, DynamicSolver,
+    challenge::{Challenge, ChallengeInput, Identity, Solution},
+    DynamicSolver,
 };
 use clap::Parser;
 use parser::parse_year;
@@ -23,42 +23,35 @@ struct Solver {
 fn main() {
     let Solver { challenges } = Solver::parse();
     let solver = UniversalSolver::default();
-    let mut inputs: HashMap<&Path, ChallengeRawInput> = HashMap::new();
+    let mut inputs: HashMap<&Path, ChallengeInput> = HashMap::new();
 
-    let requests = challenges.iter().map(
-        |(identity, path)| -> Result<ChallengeRequest, ChallengeResult> {
+    let challenges = challenges
+        .iter()
+        .map(|(identity, path)| -> Result<Challenge, Solution> {
             let raw_input = match inputs.entry(path.as_path()) {
                 Entry::Occupied(occupied_entry) => occupied_entry.get().to_owned(),
                 Entry::Vacant(vacant_entry) => {
                     let content = match fs::read_to_string(path) {
-                        Err(err) => return Err(ChallengeResult::failure(*identity, err.into())),
+                        Err(err) => return Err(Solution::new(*identity, Err(err.into()))),
                         Ok(content) => content,
                     };
-                    let input = ChallengeRawInput::new(Arc::new(content));
+                    let input = ChallengeInput::from(content);
                     vacant_entry.insert(input).to_owned()
                 }
             };
 
-            Ok(ChallengeRequest::new(*identity, raw_input))
-        },
-    );
+            Ok(Challenge::new(*identity, raw_input))
+        });
     let solutions = {
-        let mut unordered_solutions = requests
-            .map(|request| -> ChallengeResult {
-                let request = match request {
-                    Err(failed_preparation) => return failed_preparation,
-                    Ok(request) => request,
-                };
-                let identity = request.id();
-                solver
-                    .resolve(request)
-                    .map(|solution| {
-                        ChallengeResult::success(solution.id(), solution.solution().to_owned())
-                    })
-                    .unwrap_or_else(|err| ChallengeResult::failure(identity, err))
+        let mut unordered_solutions = challenges
+            .map(|challenge| -> Solution {
+                match challenge {
+                    Ok(challenge) => solver.resolve(challenge),
+                    Err(failed_preparation) => failed_preparation,
+                }
             })
             .collect::<Vec<_>>();
-        unordered_solutions.sort();
+        unordered_solutions.sort_by_key(|solution| solution.identity());
         unordered_solutions
     };
     let json_solutions =
@@ -69,7 +62,7 @@ fn main() {
 mod parser {
     use std::path::PathBuf;
 
-    use aoc_traits::{dynamic_solver::Identity, Day, Part, Year};
+    use aoc_traits::challenge::Identity;
     use winnow::{ascii::digit1, error::ContextError, seq, token::take_till, Parser};
 
     pub fn parse_year(input: &str) -> Result<(Identity, PathBuf), clap::Error> {
@@ -80,11 +73,7 @@ mod parser {
                 .map_err(|err| value_err(err.to_string()))?;
 
         Ok((
-            Identity::new(
-                Year::try_new(year).map_err(|err| value_err(err.to_string()))?,
-                Day::try_new(day).map_err(|err| value_err(err.to_string()))?,
-                Part::try_new(part).map_err(|err| value_err(err.to_string()))?,
-            ),
+            Identity::try_new(year, day, part).map_err(|err| value_err(err.to_string()))?,
             path,
         ))
     }

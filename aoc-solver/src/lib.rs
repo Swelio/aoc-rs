@@ -1,19 +1,23 @@
 use std::collections::HashMap;
 
-use aoc_traits::{AocError, AocResult, ChallengeRequest, ChallengeSolution, DynamicSolver, Year};
+use aoc_traits::{
+    challenge::{Challenge, Solution, Year},
+    error::AocError,
+    DynamicSolver,
+};
 
 /// Solve every year thanks to its inner yearly solvers
 #[derive(Default)]
 pub struct UniversalSolver(HashMap<Year, Box<dyn DynamicSolver>>);
 
 impl DynamicSolver for UniversalSolver {
-    fn resolve(&self, request: ChallengeRequest) -> AocResult<ChallengeSolution> {
-        let challenge_id = request.id();
+    fn resolve(&self, challenge: Challenge) -> Solution {
+        let identity = challenge.identity();
 
         self.0
-            .get(&challenge_id.year())
-            .map(|year_solver| year_solver.resolve(request))
-            .unwrap_or_else(|| Err(AocError::NotImplemented(challenge_id)))
+            .get(&identity.year())
+            .map(|year_solver| year_solver.resolve(challenge))
+            .unwrap_or_else(|| Solution::new(identity, Err(AocError::NotImplemented(identity))))
     }
 }
 

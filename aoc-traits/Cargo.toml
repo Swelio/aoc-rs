@@ -16,3 +16,4 @@ aoc-macros.workspace = true
 nutype = { workspace = true, features = ["serde"] }
 serde = { version = "1.0.210", features = ["derive"] }
 thiserror.workspace = true
+winnow.workspace = true

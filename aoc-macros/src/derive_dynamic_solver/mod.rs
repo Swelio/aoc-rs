@@ -16,12 +16,13 @@ pub fn expand_derive_dynamic_solver(input: TokenStream) -> TokenStream {
     let dynamic_solver_name = exec_options.ident;
 
     quote! {
-        impl ::aoc_traits::dynamic_solver::DynamicSolver for #dynamic_solver_name {
-            fn resolve(&self, request: ::aoc_traits::dynamic_solver::ChallengeRequest) -> ::aoc_traits::error::AocResult<::aoc_traits::dynamic_solver::ChallengeSolution> {
-                let challenge_id = request.id();
-                match challenge_id.as_tuple() {
+        impl ::aoc_traits::DynamicSolver for #dynamic_solver_name {
+            fn resolve(&self, challenge: ::aoc_traits::challenge::Challenge) -> ::aoc_traits::challenge::Solution {
+                let identity = challenge.identity();
+
+                match identity.as_tuple() {
                     #(#expanded_years)*
-                    _ => return Err(::aoc_traits::error::AocError::NotImplemented(challenge_id)),
+                    _ => return ::aoc_traits::challenge::Solution::new(identity, Err(::aoc_traits::error::AocError::NotImplemented(identity))),
                 }
             }
         }

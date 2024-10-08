@@ -39,11 +39,11 @@ fn expand_day(
 
         quote! {
             (#year, #day, #part) => {
-                let solution = <Self as ::aoc_traits::solver::Solver<#year_name, #day_name, #part_name>>::solve(self, request.input())?;
-                Ok(::aoc_traits::dynamic_solver::ChallengeSolution::new(&request, solution))
+                let resolution = <Self as ::aoc_traits::Solver<#year_name, #day_name, #part_name>>::solve(self, challenge.input());
+                ::aoc_traits::challenge::Solution::new(identity, resolution)
             },
         }
     }).unwrap_or_else(|| quote! {
-        (#year, #day, #part) => unimplemented!(),
+        (#year, #day, #part) => ::aoc_traits::challenge::Solution::new(identity, Err(::aoc_traits::error::AocError::NotImplemented(identity))),
     })
 }

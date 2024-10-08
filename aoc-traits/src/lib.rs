@@ -1,13 +1,12 @@
-pub mod challenge_result;
-pub mod dynamic_solver;
+pub mod challenge;
 pub mod error;
-pub mod solver;
 
 pub use aoc_macros::DynamicSolver;
-pub use challenge_result::ChallengeResult;
-pub use dynamic_solver::{ChallengeRequest, ChallengeSolution, Day, DynamicSolver, Part, Year};
-pub use error::{AocError, AocResult};
-pub use solver::{ChallengeRawInput, Solution, Solver};
+pub use dynamic_solver::DynamicSolver;
+pub use solver::Solver;
+
+mod dynamic_solver;
+mod solver;
 
 pub mod years {
     use aoc_macros::generate_year_units;
