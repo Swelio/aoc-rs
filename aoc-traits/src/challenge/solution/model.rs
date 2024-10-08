@@ -1,7 +1,7 @@
 use std::fmt::{self, Display};
 
 use crate::{
-    challenge::identity::Identity,
+    challenge::{identity::Identity, input::InputName},
     error::{AocError, AocResult},
 };
 
@@ -18,20 +18,26 @@ enum SerdeResult {
 #[derive(Debug, serde::Serialize, serde::Deserialize)]
 pub struct Solution {
     identity: Identity,
+    input_name: InputName,
     #[serde(with = "SerdeResult")]
     resolution: AocResult<Flag>,
 }
 
 impl Solution {
-    pub fn new(identity: Identity, resolution: AocResult<Flag>) -> Self {
+    pub fn new(identity: Identity, input_name: InputName, resolution: AocResult<Flag>) -> Self {
         Self {
             identity,
+            input_name,
             resolution,
         }
     }
 
     pub fn identity(&self) -> Identity {
         self.identity
+    }
+
+    pub fn input_name(&self) -> &InputName {
+        &self.input_name
     }
 
     pub fn resolution(&self) -> &AocResult<Flag> {

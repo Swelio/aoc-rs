@@ -7,7 +7,7 @@ use std::{
 
 use aoc_solver::UniversalSolver;
 use aoc_traits::{
-    challenge::{Challenge, ChallengeInput, Identity, Solution},
+    challenge::{Challenge, ChallengeInput, Identity, InputName, Solution},
     DynamicSolver,
 };
 use clap::Parser;
@@ -28,11 +28,15 @@ fn main() {
     let challenges = challenges
         .iter()
         .map(|(identity, path)| -> Result<Challenge, Solution> {
+            let input_name = InputName::new(path.display().to_string());
+
             let raw_input = match inputs.entry(path.as_path()) {
                 Entry::Occupied(occupied_entry) => occupied_entry.get().to_owned(),
                 Entry::Vacant(vacant_entry) => {
                     let content = match fs::read_to_string(path) {
-                        Err(err) => return Err(Solution::new(*identity, Err(err.into()))),
+                        Err(err) => {
+                            return Err(Solution::new(*identity, input_name, Err(err.into())))
+                        }
                         Ok(content) => content,
                     };
                     let input = ChallengeInput::from(content);
@@ -40,7 +44,7 @@ fn main() {
                 }
             };
 
-            Ok(Challenge::new(*identity, raw_input))
+            Ok(Challenge::new(*identity, input_name, raw_input))
         });
     let solutions = {
         let mut unordered_solutions = challenges

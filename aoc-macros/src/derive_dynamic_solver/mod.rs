@@ -19,10 +19,11 @@ pub fn expand_derive_dynamic_solver(input: TokenStream) -> TokenStream {
         impl ::aoc_traits::DynamicSolver for #dynamic_solver_name {
             fn resolve(&self, challenge: ::aoc_traits::challenge::Challenge) -> ::aoc_traits::challenge::Solution {
                 let identity = challenge.identity();
+                let input_name = challenge.input_name().to_owned();
 
                 match identity.as_tuple() {
                     #(#expanded_years)*
-                    _ => return ::aoc_traits::challenge::Solution::new(identity, Err(::aoc_traits::error::AocError::NotImplemented(identity))),
+                    _ => return ::aoc_traits::challenge::Solution::new(identity, input_name, Err(::aoc_traits::error::AocError::NotImplemented(identity))),
                 }
             }
         }

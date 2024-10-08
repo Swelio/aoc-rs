@@ -40,7 +40,7 @@ fn expand_day(
         quote! {
             (#year, #day, #part) => {
                 let resolution = <Self as ::aoc_traits::Solver<#year_name, #day_name, #part_name>>::solve(self, challenge.input());
-                ::aoc_traits::challenge::Solution::new(identity, resolution)
+                ::aoc_traits::challenge::Solution::new(identity, input_name, resolution)
             },
         }
     })

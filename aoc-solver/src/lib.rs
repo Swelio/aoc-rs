@@ -13,11 +13,18 @@ pub struct UniversalSolver(HashMap<Year, Box<dyn DynamicSolver>>);
 impl DynamicSolver for UniversalSolver {
     fn resolve(&self, challenge: Challenge) -> Solution {
         let identity = challenge.identity();
+        let input_name = challenge.input_name().to_owned();
 
         self.0
             .get(&identity.year())
             .map(|year_solver| year_solver.resolve(challenge))
-            .unwrap_or_else(|| Solution::new(identity, Err(AocError::NotImplemented(identity))))
+            .unwrap_or_else(|| {
+                Solution::new(
+                    identity,
+                    input_name,
+                    Err(AocError::NotImplemented(identity)),
+                )
+            })
     }
 }
 
