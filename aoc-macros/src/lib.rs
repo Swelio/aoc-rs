@@ -6,12 +6,12 @@ use units::{day_ident, generate_units, part_ident, year_ident};
 
 #[proc_macro]
 pub fn generate_year_units(_: proc_macro::TokenStream) -> proc_macro::TokenStream {
-    generate_units(2015..=2023, year_ident).into()
+    generate_units(2015..=2024, year_ident).into()
 }
 
 #[proc_macro]
 pub fn generate_day_units(_: proc_macro::TokenStream) -> proc_macro::TokenStream {
-    generate_units(1..=31, day_ident).into()
+    generate_units(1..=25, day_ident).into()
 }
 
 #[proc_macro]

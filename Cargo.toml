@@ -1,5 +1,5 @@
 [workspace]
-members = ["aoc-macros", "aoc-solver", "aoc-traits"]
+members = ["aoc-macros", "aoc-solver", "aoc-traits", "years/*"]
 resolver = "2"
 
 [workspace.lints]
@@ -28,8 +28,6 @@ strip = true
 [patch.crates-io]
 aoc-macros = { path = "aoc-macros" }
 aoc-traits = { path = "aoc-traits" }
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [workspace.dependencies]
 aoc-macros = "*"

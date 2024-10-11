@@ -10,20 +10,32 @@ use aoc_solver::{
     solver::UniversalSolver,
 };
 use aoc_traits::{
-    challenge::{Challenge, ChallengeInput, InputName, Solution},
+    challenge::{Challenge, ChallengeInput, InputName, Solution, Year},
     DynamicSolver,
 };
 use clap::Parser;
 
 fn main() {
     let cli = Cli::parse();
-    let solver = UniversalSolver::default();
-
+    let solver = build_solver();
     let challenges = open_challenge_inputs(cli.into_challenges());
     let solutions = resolve_challenges(&solver, challenges);
+    eprintln!("{solutions:?}");
     let json_solutions =
         serde_json::to_string(&solutions).expect("serialization should always work");
     print!("{json_solutions}");
+}
+
+fn build_solver() -> UniversalSolver {
+    let mut solver = UniversalSolver::default();
+
+    #[cfg(feature = "year-2022")]
+    solver.add_solver(
+        Year::try_new(2022).expect("2022 is a valid year"),
+        year_2022::Year2022Solver,
+    );
+
+    solver
 }
 
 fn open_challenge_inputs(

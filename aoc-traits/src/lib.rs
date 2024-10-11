@@ -1,5 +1,6 @@
 pub mod challenge;
 pub mod error;
+pub mod prelude;
 
 pub use aoc_macros::DynamicSolver;
 pub use dynamic_solver::DynamicSolver;

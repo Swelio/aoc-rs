@@ -9,12 +9,18 @@ keywords.workspace = true
 repository.workspace = true
 categories.workspace = true
 
+[features]
+default = ["full"]
+full = ["year-2022"]
+year-2022 = ["dep:year-2022"]
+
 [dependencies]
 aoc-traits.workspace = true
 clap = { version = "4.5.19", features = ["derive"] }
 serde_json = "1.0"
 thiserror.workspace = true
 winnow.workspace = true
+year-2022 = { path = "../years/year-2022", optional = true }
 
 [lints]
 workspace = true

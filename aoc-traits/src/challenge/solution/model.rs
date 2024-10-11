@@ -9,9 +9,11 @@ use super::Flag;
 
 #[derive(serde::Serialize, serde::Deserialize)]
 #[serde(remote = "AocResult<Flag>")]
-#[serde(tag = "kind")]
+#[serde(tag = "kind", content = "flag")]
 enum SerdeResult {
+    #[serde(rename = "success")]
     Ok(Flag),
+    #[serde(rename = "failure")]
     Err(AocError),
 }
 

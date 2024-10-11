@@ -19,7 +19,7 @@ use nutype::nutype;
 pub struct Year(u16);
 
 #[nutype(
-    validate(greater_or_equal = 1, less_or_equal = 31),
+    validate(greater_or_equal = 1, less_or_equal = 25),
     derive(
         Clone,
         Copy,
@@ -36,7 +36,7 @@ pub struct Year(u16);
 pub struct Day(u8);
 
 #[nutype(
-    validate(greater_or_equal = 1),
+    validate(greater_or_equal = 1, less_or_equal = 2),
     derive(
         Clone,
         Copy,
