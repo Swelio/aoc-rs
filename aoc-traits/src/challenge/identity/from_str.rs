@@ -1,6 +1,6 @@
 use std::str::FromStr;
 
-use winnow::{ascii::digit1, error::ContextError, seq, Parser};
+use winnow::{ascii::digit1, error::ContextError, seq, PResult, Parser};
 
 use crate::error::{AocError, AocResult};
 
@@ -14,20 +14,28 @@ impl FromStr for Identity {
     }
 }
 
-fn parse_identity(input: &str) -> AocResult<Identity> {
-    let (year, day, part) =
-            seq!(digit1::<_, ContextError>.parse_to(), _: '-', digit1.parse_to(), _: '-', digit1.parse_to())
-                .parse(input).map_err(IdentityError::from)?;
-
-    Identity::try_new(year, day, part)
-}
-
 impl TryFrom<String> for Identity {
     type Error = AocError;
 
     fn try_from(input: String) -> Result<Self, Self::Error> {
         Self::from_str(&input)
     }
+}
+
+fn parse_identity(input: &str) -> AocResult<Identity> {
+    let (year, day, part) = identity_raw_parser
+        .parse(input)
+        .map_err(IdentityError::from)?;
+
+    Identity::try_new(year, day, part)
+}
+
+pub fn identity_raw_parser(input: &mut &str) -> PResult<(u16, u8, u8)> {
+    let (year, day, part) =
+            seq!(digit1::<_, ContextError>.parse_to(), _: '-', digit1.parse_to(), _: '-', digit1.parse_to())
+                .parse_next(input)?;
+
+    Ok((year, day, part))
 }
 
 #[cfg(test)]
