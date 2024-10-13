@@ -13,14 +13,19 @@ use aoc_traits::{
     challenge::{Challenge, ChallengeInput, InputName, Solution, Year},
     DynamicSolver,
 };
-use clap::Parser;
+use clap::{CommandFactory, Parser};
 
 fn main() {
     let cli = Cli::parse();
     let solver = build_solver();
-    let challenges = open_challenge_inputs(cli.into_challenges());
+    let file_challenges = match cli.file_challenges() {
+        Err(err) => Cli::command()
+            .error(clap::error::ErrorKind::Io, err.to_string())
+            .exit(),
+        Ok(challenges) => challenges,
+    };
+    let challenges = open_challenge_inputs(cli.into_challenges().chain(file_challenges));
     let solutions = resolve_challenges(&solver, challenges);
-    eprintln!("{solutions:?}");
     let json_solutions =
         serde_json::to_string(&solutions).expect("serialization should always work");
     print!("{json_solutions}");

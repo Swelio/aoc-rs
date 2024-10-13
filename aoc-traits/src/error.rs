@@ -7,6 +7,7 @@ use crate::challenge::{Identity, IdentityError};
 pub type AocResult<T> = std::result::Result<T, AocError>;
 
 #[derive(Debug, thiserror::Error, serde::Serialize, serde::Deserialize)]
+#[serde(tag = "kind", content = "message")]
 pub enum AocError {
     #[error("result is empty")]
     EmptyResult,
