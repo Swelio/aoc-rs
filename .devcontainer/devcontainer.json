@@ -1,4 +1,5 @@
 {
+    "containerUser": "swelio",
     "customizations": {
         "vscode": {
             "extensions": [
@@ -32,6 +33,7 @@
         }
     },
     "image": "ghcr.io/swelio/dev-images/rust:latest",
+    "initializeCommand": "docker pull ghcr.io/swelio/dev-images/rust:latest",
     "mounts": [
         {
             "source": "devcontainer-cargo-cache-${devcontainerId}",
@@ -47,6 +49,5 @@
     "name": "${localWorkspaceFolderBasename}-rust",
     "overrideCommand": true,
     "privileged": false,
-    "workspaceFolder": "/workspace",
-    "containerUser": "swelio"
+    "workspaceFolder": "/workspace"
 }

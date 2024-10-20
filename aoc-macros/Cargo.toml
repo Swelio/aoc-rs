@@ -1,0 +1,22 @@
+[package]
+name = "aoc-macros"
+authors.workspace = true
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+keywords.workspace = true
+repository.workspace = true
+categories.workspace = true
+
+[lib]
+proc-macro = true
+
+[lints]
+clippy = { all = "deny" }
+rust = { unsafe_code = "forbid" }
+
+[dependencies]
+darling = "0.20.10"
+proc-macro2 = "1.0.86"
+quote = "1.0.37"
+syn = "2.0.77"
