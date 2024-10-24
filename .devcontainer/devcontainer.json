@@ -1,4 +1,5 @@
 {
+    "containerUser": "swelio",
     "customizations": {
         "vscode": {
             "extensions": [
@@ -47,6 +48,9 @@
     "name": "${localWorkspaceFolderBasename}-rust",
     "overrideCommand": true,
     "privileged": false,
-    "workspaceFolder": "/workspace",
-    "containerUser": "swelio"
+    "runArgs": [
+        "--userns=keep-id"
+    ],
+    "updateRemoteUserUID": true,
+    "workspaceFolder": "/workspace"
 }
