@@ -33,7 +33,6 @@
         }
     },
     "image": "ghcr.io/swelio/dev-images/rust:latest",
-    "initializeCommand": "docker pull ghcr.io/swelio/dev-images/rust:latest",
     "mounts": [
         {
             "source": "devcontainer-cargo-cache-${devcontainerId}",
