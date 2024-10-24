@@ -48,5 +48,9 @@
     "name": "${localWorkspaceFolderBasename}-rust",
     "overrideCommand": true,
     "privileged": false,
+    "runArgs": [
+        "--userns=keep-id"
+    ],
+    "updateRemoteUserUID": true,
     "workspaceFolder": "/workspace"
 }
