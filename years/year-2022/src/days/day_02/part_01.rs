@@ -22,7 +22,7 @@ impl Solver<Year2022, Day02, Part01> for Year2022Solver {
             .map(|round| round.play())
             .sum();
 
-        Ok(Flag::new(score.into_inner()))
+        Ok(Flag::from(score.into_inner()))
     }
 }
 

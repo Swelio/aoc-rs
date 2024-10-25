@@ -1,4 +1,4 @@
-pub use crate::challenge::Flag;
+pub use crate::challenge::{Flag, FlagKind};
 pub use crate::days::*;
 pub use crate::error::{AocError, AocResult};
 pub use crate::parts::*;

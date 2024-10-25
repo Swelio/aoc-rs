@@ -15,6 +15,6 @@ impl Solver<Year2022, Day01, Part02> for Year2022Solver {
         };
         let top: Calories = input[0..3].iter().copied().sum();
 
-        Ok(Flag::new(top.into_inner() as i64))
+        Ok(Flag::from(top.into_inner() as i64))
     }
 }

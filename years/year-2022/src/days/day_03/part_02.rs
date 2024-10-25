@@ -32,6 +32,6 @@ impl Solver<Year2022, Day03, Part02> for Year2022Solver {
             })
             .sum::<Priority>();
 
-        Ok(Flag::new(total.into_inner()))
+        Ok(Flag::from(total.into_inner()))
     }
 }

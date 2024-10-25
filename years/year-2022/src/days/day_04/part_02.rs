@@ -15,6 +15,6 @@ impl Solver<Year2022, Day04, Part02> for Year2022Solver {
             .filter(|pair| pair.is_self_overlapping())
             .count();
 
-        Ok(Flag::new(count as i64))
+        Ok(Flag::from(count as i64))
     }
 }
