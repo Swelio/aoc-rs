@@ -1,4 +1,5 @@
 pub mod compartment;
+pub mod intersectable;
 pub mod item;
 
 use std::{collections::HashSet, str::FromStr};
