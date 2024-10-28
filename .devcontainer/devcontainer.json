@@ -21,6 +21,7 @@
         }
     },
     "features": {
+        "./gpg": {},
         "ghcr.io/devcontainers/features/common-utils:2": {
             "configureZshAsDefaultShell": false,
             "gid": "${localEnv:USER_GID}",
@@ -49,6 +50,8 @@
     "overrideCommand": true,
     "privileged": false,
     "runArgs": [
+        "--cap-drop=all",
+        "--security-opt=no-new-privileges",
         "--userns=keep-id"
     ],
     "updateRemoteUserUID": true,
