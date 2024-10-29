@@ -6,22 +6,22 @@
     "mounts": [
         {
             "source": "${localEnv:HOME}/.gnupg/trustdb.gpg",
-            "target": "/home/swelio/.gnupg/trustdb.gpg,readonly",
+            "target": "/home/${localEnv:DEV_USERNAME}/.gnupg/trustdb.gpg,readonly",
             "type": "bind"
         },
         {
             "source": "${localEnv:HOME}/.gnupg/pubring.kbx",
-            "target": "/home/swelio/.gnupg/pubring.kbx,readonly",
+            "target": "/home/${localEnv:DEV_USERNAME}/.gnupg/pubring.kbx,readonly",
             "type": "bind"
         },
         {
             "source": "${localEnv:XDG_RUNTIME_DIR}/gnupg/S.gpg-agent",
-            "target": "/home/swelio/.gnupg/S.gpg-agent,readonly",
+            "target": "/home/${localEnv:DEV_USERNAME}/.gnupg/S.gpg-agent,readonly",
             "type": "bind"
         },
         {
             "source": "${localEnv:XDG_RUNTIME_DIR}/gnupg/S.gpg-agent.extra",
-            "target": "/home/swelio/.gnupg/S.gpg-agent.extra,readonly",
+            "target": "/home/${localEnv:DEV_USERNAME}/.gnupg/S.gpg-agent.extra,readonly",
             "type": "bind"
         }
     ],

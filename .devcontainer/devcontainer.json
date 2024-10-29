@@ -1,5 +1,8 @@
 {
-    "containerUser": "swelio",
+    "containerEnv": {
+        "CARGO_HOME": "/cargo-cache"
+    },
+    "containerUser": "${localEnv:DEV_USERNAME}",
     "customizations": {
         "vscode": {
             "extensions": [
@@ -16,7 +19,8 @@
                     "**/.git/objects/**": true,
                     "**/.git/subtree-cache/**": true,
                     "**/target/**": true
-                }
+                },
+                "rust-analyzer.check.command": "clippy"
             }
         }
     },
@@ -37,7 +41,7 @@
     "mounts": [
         {
             "source": "devcontainer-cargo-cache-${devcontainerId}",
-            "target": "/usr/local/cargo",
+            "target": "/cargo-cache",
             "type": "volume"
         },
         {
@@ -50,7 +54,6 @@
     "overrideCommand": true,
     "privileged": false,
     "runArgs": [
-        "--cap-drop=all",
         "--security-opt=no-new-privileges",
         "--userns=keep-id"
     ],
