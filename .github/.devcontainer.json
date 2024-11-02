@@ -22,7 +22,7 @@
     },
     "features": {
         "ghcr.io/swelio/dev-images/apt-install:latest": {
-            "packages": "build-essential pkg-config"
+            "packages": "build-essential libssl-dev openssl pkg-config"
         },
         "ghcr.io/swelio/dev-images/cargo-tools:latest": {
             "tools": "cargo-generate cocogitto drill git-cliff hyperfine"
