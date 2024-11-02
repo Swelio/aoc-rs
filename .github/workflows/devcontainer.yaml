@@ -18,3 +18,5 @@ on:
 jobs:
   pre-build:
     uses: Swelio/continuous-integration/.github/workflows/devcontainer-prebuild.yaml@main
+    with:
+      imageName: ghcr.io/swelio/aoc-rs/devcontainer
