@@ -1,24 +1,8 @@
 {
-    "customizations": {
-        "vscode": {
-            "extensions": [
-                "rust-lang.rust-analyzer",
-                "tamasfe.even-better-toml"
-            ],
-            "settings": {
-                "[rust]": {
-                    "editor.defaultFormatter": "rust-lang.rust-analyzer",
-                    "editor.formatOnSave": true
-                },
-                "explorer.excludeGitIgnore": true,
-                "files.watcherExclude": {
-                    "**/.git/objects/**": true,
-                    "**/.git/subtree-cache/**": true,
-                    "**/target/**": true
-                }
-            }
-        }
+    "containerEnv": {
+        "CARGO_HOME": "/cargo-cache"
     },
+    "containerUser": "${localEnv:DEV_USERNAME}",
     "features": {
         "ghcr.io/devcontainers/features/common-utils:2": {
             "configureZshAsDefaultShell": false,
@@ -35,7 +19,7 @@
     "mounts": [
         {
             "source": "devcontainer-cargo-cache-${devcontainerId}",
-            "target": "/usr/local/cargo",
+            "target": "/cargo-cache",
             "type": "volume"
         },
         {
@@ -47,6 +31,10 @@
     "name": "${localWorkspaceFolderBasename}-rust",
     "overrideCommand": true,
     "privileged": false,
-    "workspaceFolder": "/workspace",
-    "containerUser": "swelio"
+    "runArgs": [
+        "--security-opt=no-new-privileges",
+        "--userns=keep-id"
+    ],
+    "updateRemoteUserUID": true,
+    "workspaceFolder": "/workspace"
 }

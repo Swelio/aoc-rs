@@ -1,0 +1,20 @@
+name: Devcontainer prebuilding
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'main'
+    paths:
+      - .github/.devcontainer.json
+  pull_request:
+    branches:
+      - 'main'
+    paths:
+      - .github/.devcontainer.json
+  schedule:
+    - cron: '59 23 * * FRI'
+
+jobs:
+  pre-build:
+    uses: Swelio/continuous-integration/.github/workflows/devcontainer-prebuild.yaml@main

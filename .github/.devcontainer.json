@@ -1,0 +1,38 @@
+{
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "rust-lang.rust-analyzer",
+                "tamasfe.even-better-toml"
+            ],
+            "settings": {
+                "[rust]": {
+                    "editor.defaultFormatter": "rust-lang.rust-analyzer",
+                    "editor.formatOnSave": true
+                },
+                "explorer.excludeGitIgnore": true,
+                "files.watcherExclude": {
+                    "**/.git/objects/**": true,
+                    "**/.git/subtree-cache/**": true,
+                    "**/target/**": true
+                },
+                "rust-analyzer.check.command": "clippy"
+            }
+        }
+    },
+    "features": {
+        "ghcr.io/swelio/dev-images/apt-install:latest": {
+            "packages": "build-essential libssl-dev openssl pkg-config"
+        },
+        "ghcr.io/swelio/dev-images/cargo-tools:latest": {
+            "tools": "cargo-generate cocogitto drill git-cliff hyperfine"
+        },
+        "ghcr.io/swelio/dev-images/rustup:latest": {
+            "components": "clippy rust-src rustfmt"
+        }
+    },
+    "image": "rust:slim-bookworm",
+    "overrideCommand": true,
+    "privileged": false,
+    "workspaceFolder": "/workspace"
+}
