@@ -21,4 +21,4 @@ concurrency:
 
 jobs:
   pre-build:
-    uses: Swelio/continuous-integration/workflows/devcontainer-prebuild.yaml@main
+    uses: Swelio/continuous-integration/.github/workflows/devcontainer-prebuild.yaml@main
