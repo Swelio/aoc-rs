@@ -21,6 +21,6 @@ concurrency:
 
 jobs:
   pre-build:
-    uses: .github/workflows/devcontainer.callable.yaml
+    uses: .github/workflows/devcontainer.callable.yaml@main
     with:
       imageName: devcontainer
