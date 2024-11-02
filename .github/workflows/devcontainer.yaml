@@ -21,6 +21,6 @@ concurrency:
 
 jobs:
   pre-build:
-    uses: swelio/.github/workflows/devcontainer.yaml@main
+    uses: .github/workflows/devcontainer.callable.yaml
     with:
       imageName: devcontainer
