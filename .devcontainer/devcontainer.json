@@ -15,7 +15,7 @@
             "upgradePackages": true
         }
     },
-    "image": "ghcr.io/swelio/dev-images/rust:latest",
+    "image": "ghcr.io/swelio/aoc-rs/devcontainer:latest",
     "mounts": [
         {
             "source": "devcontainer-cargo-cache-${devcontainerId}",
