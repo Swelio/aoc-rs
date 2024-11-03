@@ -15,12 +15,8 @@ on:
   schedule:
     - cron: '59 23 * * FRI'
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   pre-build:
-    uses: Swelio/.github/workflows/devcontainer.callable.yaml@main
+    uses: Swelio/continuous-integration/.github/workflows/devcontainer-prebuild.yaml@main
     with:
-      imageName: devcontainer
+      imageName: ghcr.io/swelio/aoc-rs/devcontainer

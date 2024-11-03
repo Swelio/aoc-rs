@@ -22,7 +22,7 @@
     },
     "features": {
         "ghcr.io/swelio/dev-images/apt-install:latest": {
-            "packages": "build-essential"
+            "packages": "build-essential libssl-dev openssl pkg-config"
         },
         "ghcr.io/swelio/dev-images/cargo-tools:latest": {
             "tools": "cargo-generate cocogitto drill git-cliff hyperfine"
@@ -32,7 +32,6 @@
         }
     },
     "image": "rust:slim-bookworm",
-    "name": "${localWorkspaceFolderBasename}-rust",
     "overrideCommand": true,
     "privileged": false,
     "workspaceFolder": "/workspace"
