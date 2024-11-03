@@ -13,7 +13,8 @@
             "nonFreePackages": false,
             "uid": "${localEnv:USER_UID}",
             "upgradePackages": true
-        }
+        },
+        "ghcr.io/swelio/dev-images/gpg:latest": {}
     },
     "image": "ghcr.io/swelio/aoc-rs/devcontainer:latest",
     "mounts": [
