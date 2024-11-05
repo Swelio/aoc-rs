@@ -14,7 +14,7 @@
             "uid": "${localEnv:USER_UID}",
             "upgradePackages": true
         },
-        "ghcr.io/swelio/dev-images/gpg:latest": {}
+        "ghcr.io/swelio/dev-images/features/gpg:latest": {}
     },
     "image": "ghcr.io/swelio/aoc-rs/devcontainer:latest",
     "mounts": [
