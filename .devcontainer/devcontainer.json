@@ -13,9 +13,10 @@
             "nonFreePackages": false,
             "uid": "${localEnv:USER_UID}",
             "upgradePackages": true
-        }
+        },
+        "ghcr.io/swelio/dev-images/features/gpg:latest": {}
     },
-    "image": "ghcr.io/swelio/dev-images/rust:latest",
+    "image": "ghcr.io/swelio/aoc-rs/devcontainer:latest",
     "mounts": [
         {
             "source": "devcontainer-cargo-cache-${devcontainerId}",
