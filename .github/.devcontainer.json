@@ -21,13 +21,13 @@
         }
     },
     "features": {
-        "ghcr.io/swelio/dev-images/apt-install:latest": {
+        "ghcr.io/swelio/dev-images/features/apt-install:latest": {
             "packages": "build-essential libssl-dev openssl pkg-config"
         },
-        "ghcr.io/swelio/dev-images/cargo-tools:latest": {
+        "ghcr.io/swelio/dev-images/features/cargo-tools:latest": {
             "tools": "cargo-generate cocogitto drill git-cliff hyperfine"
         },
-        "ghcr.io/swelio/dev-images/rustup:latest": {
+        "ghcr.io/swelio/dev-images/features/rustup:latest": {
             "components": "clippy rust-src rustfmt"
         }
     },
