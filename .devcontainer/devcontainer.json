@@ -55,7 +55,8 @@
                     "**/.git/subtree-cache/**": true,
                     "**/target/**": true
                 },
-                "rust-analyzer.check.command": "clippy"
+                "rust-analyzer.check.command": "clippy",
+                "rust-analyzer.cfg.setTest": true
             }
         }
     },

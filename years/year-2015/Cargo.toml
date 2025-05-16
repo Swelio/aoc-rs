@@ -12,3 +12,7 @@ repository.workspace = true
 categories.workspace = true
 
 [dependencies]
+aoc-core.workspace = true
+
+[dev-dependencies]
+proptest.workspace = true
