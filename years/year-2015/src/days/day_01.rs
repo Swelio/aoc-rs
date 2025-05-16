@@ -1,3 +1,4 @@
+mod components;
 mod input;
 mod parser;
 mod solver;

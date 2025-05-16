@@ -8,9 +8,9 @@ pub trait Parser<I>: Sized {
 impl<T, I> Parser<I> for T
 where
     T: TryFrom<I>,
-    SantaError: From<T::Error>,
+    anyhow::Error: From<T::Error>,
 {
     fn try_parse(input: I) -> SantaResult<Self> {
-        T::try_from(input).map_err(SantaError::from)
+        T::try_from(input).map_err(|err| SantaError::ParsingError(err.into()))
     }
 }

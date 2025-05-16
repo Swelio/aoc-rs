@@ -14,5 +14,9 @@ categories.workspace = true
 [dependencies]
 aoc-core.workspace = true
 
+anyhow.workspace = true
+derive_more.workspace = true
+winnow.workspace = true
+
 [dev-dependencies]
 proptest.workspace = true

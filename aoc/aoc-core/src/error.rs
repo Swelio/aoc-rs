@@ -5,5 +5,5 @@ pub enum SantaError {
     #[error("input is empty")]
     EmptyInput,
     #[error("parsing error: {0}")]
-    ParsingError(#[from] anyhow::Error),
+    ParsingError(#[source] anyhow::Error),
 }

@@ -1,9 +1,28 @@
-use aoc_core::{SantaResult, components::TextInput, ports::Parser};
+use aoc_core::{SantaError, SantaResult, components::TextInput, ports};
+use winnow::{
+    Parser,
+    combinator::{dispatch, empty, fail, repeat},
+    token::any,
+};
 
-use super::input::Day01Input;
+use super::{components::Direction, input::Day01Input};
 
-impl Parser<TextInput> for Day01Input {
+impl ports::Parser<TextInput> for Day01Input {
     fn try_parse(input: TextInput) -> SantaResult<Self> {
-        todo!()
+        parse_input
+            .parse(input.as_ref())
+            .map_err(|err| SantaError::ParsingError(anyhow::format_err!("{err}")))
     }
+}
+
+fn parse_input(input: &mut &str) -> winnow::Result<Day01Input> {
+    let parse_direction = dispatch! {any;
+        '(' => empty.value(Direction::Up),
+        ')' => empty.value(Direction::Down),
+        _ => fail::<_, Direction, _>,
+    };
+
+    repeat(1.., parse_direction)
+        .map(Day01Input::new)
+        .parse_next(input)
 }
