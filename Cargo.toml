@@ -1,6 +1,6 @@
 [workspace]
-members = ["aoc-macros", "aoc-solver", "aoc-traits", "years/*"]
-resolver = "2"
+members = ["aoc/*"]
+resolver = "3"
 
 [workspace.lints]
 clippy = { all = "deny" }
@@ -10,8 +10,9 @@ rust = { unsafe_code = "forbid" }
 description = "Advent of Code proposition of solutions with Rust language."
 authors = ["Swelio <swelio.github@outlook.com>"]
 version = "0.1.0"
-edition = "2021"
+edition = "2024"
 license = "MIT"
+license-file = "LICENSE"
 keywords = ["education", "advent-of-code"]
 repository = "https://github.com/Swelio/aoc-rs.git"
 categories = ["advent-of-code"]
@@ -25,13 +26,4 @@ lto = true
 opt-level = 3
 strip = true
 
-[patch.crates-io]
-aoc-macros = { path = "aoc-macros" }
-aoc-traits = { path = "aoc-traits" }
-
 [workspace.dependencies]
-aoc-macros = "*"
-aoc-traits = "*"
-nutype = "0.5.0"
-thiserror = "1.0"
-winnow = "0.6.20"

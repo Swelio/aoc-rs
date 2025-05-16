@@ -1,41 +1,72 @@
 {
-    "containerEnv": {
-        "CARGO_HOME": "/cargo-cache"
+    "name": "aoc-rs",
+    "image": "ghcr.io/swelio/dev-images/base/rust:latest",
+    "containerUser": "dev",
+    "workspaceFolder": "/workspace",
+    "overrideCommand": true,
+    "privileged": false,
+    "runArgs": [
+        "--cap-drop=ALL",
+        "--read-only",
+        "--security-opt=no-new-privileges"
+    ],
+    "remoteEnv": {
+        "CARGO_HOME": "/home/dev/.cargo"
     },
-    "containerUser": "${localEnv:DEV_USERNAME}",
-    "features": {
-        "ghcr.io/devcontainers/features/common-utils:2": {
-            "configureZshAsDefaultShell": false,
-            "gid": "${localEnv:USER_GID}",
-            "installOhMyZsh": true,
-            "installOhMyZshConfig": true,
-            "installZsh": true,
-            "nonFreePackages": false,
-            "uid": "${localEnv:USER_UID}",
-            "upgradePackages": true
-        },
-        "ghcr.io/swelio/dev-images/features/gpg:latest": {}
-    },
-    "image": "ghcr.io/swelio/aoc-rs/devcontainer:latest",
     "mounts": [
         {
-            "source": "devcontainer-cargo-cache-${devcontainerId}",
-            "target": "/cargo-cache",
+            "source": "devcontainer-home-${devcontainerId}",
+            "target": "/home/dev",
             "type": "volume"
         },
         {
             "source": "${localWorkspaceFolder}",
             "target": "/workspace",
             "type": "bind"
+        },
+        {
+            "type": "tmpfs",
+            "target": "/run"
+        },
+        {
+            "type": "tmpfs",
+            "target": "/tmp"
+        },
+        {
+            "type": "tmpfs",
+            "target": "/var/tmp"
         }
     ],
-    "name": "${localWorkspaceFolderBasename}-rust",
-    "overrideCommand": true,
-    "privileged": false,
-    "runArgs": [
-        "--security-opt=no-new-privileges",
-        "--userns=keep-id"
-    ],
-    "updateRemoteUserUID": true,
-    "workspaceFolder": "/workspace"
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "bierner.markdown-mermaid",
+                "rust-lang.rust-analyzer",
+                "tamasfe.even-better-toml"
+            ],
+            "settings": {
+                "[rust]": {
+                    "editor.defaultFormatter": "rust-lang.rust-analyzer",
+                    "editor.formatOnSave": true
+                },
+                "explorer.excludeGitIgnore": true,
+                "files.watcherExclude": {
+                    "**/.git/objects/**": true,
+                    "**/.git/subtree-cache/**": true,
+                    "**/target/**": true
+                },
+                "rust-analyzer.check.command": "clippy"
+            }
+        }
+    },
+    "features": {
+        "ghcr.io/devcontainers/features/common-utils:2": {
+            "configureZshAsDefaultShell": false,
+            "installZsh": true,
+            "installOhMyZsh": true,
+            "installOhMyZshConfig": true,
+            "nonFreePackages": false,
+            "upgradePackages": false
+        }
+    }
 }

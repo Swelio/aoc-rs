@@ -10,7 +10,7 @@
 
 ## About
 
-This is a proposition of solutions in Rust for the advent of code annual event available at https://adventofcode.com/.
+This is a proposition of solutions in Rust for the advent of code annual event available at <https://adventofcode.com/>.
 
 This repository is only for education. As I don't want to interfere with leaderboards, the code will never be
 published on the day of the puzzle. So, please use these solutions for your proper learning.
@@ -21,4 +21,5 @@ Here is the list of advent of code events present in the repository:
 
 |       Year        |     Status     |         Link of event         |
 |:-----------------:|:--------------:|:-----------------------------:|
-| [2022](year-2022) | :construction: | https://adventofcode.com/2022 |
+| [2015](years/year-2015) | :construction: | <https://adventofcode.com/2015> |
+| [2022](years/year-2022) | :construction: | <https://adventofcode.com/2022> |
