@@ -1,3 +1,5 @@
-pub use direction::Direction;
-
-mod direction;
+#[derive(Debug, Clone, Copy)]
+pub enum Direction {
+    Up,
+    Down,
+}

@@ -7,3 +7,11 @@ pub struct Cli {
     #[command(subcommand)]
     command: CliCommand,
 }
+
+impl Cli {
+    pub fn run(&self) {
+        if let Err(err) = self.command.run() {
+            eprintln!("Command error:\n{err}");
+        }
+    }
+}

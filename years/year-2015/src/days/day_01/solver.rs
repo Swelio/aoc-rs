@@ -1,23 +1,20 @@
-use aoc_core::{SantaResult, components::Solution, ports::Solver};
-
-use crate::solver::Year2015Solver;
+use aoc_core::{
+    SantaResult,
+    components::{Solution, parts::Part1},
+    ports::Challenge,
+};
 
 use super::{components::Direction, input::Day01Input};
 
-impl Solver<Day01Input> for Year2015Solver {
-    type Output = i32;
-
-    fn solve(&self, input: &Day01Input) -> SantaResult<Solution<Day01Input, Self::Output>> {
-        Ok(Solution::new(solve_part_01(input), 0))
+impl Challenge<Solution<Part1>> for Day01Input {
+    fn solve(&self) -> SantaResult<Solution<Part1>> {
+        Ok(self
+            .into_iter()
+            .map(|direction| match direction {
+                Direction::Up => 1,
+                Direction::Down => -1,
+            })
+            .sum::<i32>())
+        .and_then(Solution::try_new)
     }
-}
-
-fn solve_part_01(input: &Day01Input) -> i32 {
-    input
-        .into_iter()
-        .map(|direction| match direction {
-            Direction::Up => 1,
-            Direction::Down => -1,
-        })
-        .sum()
 }

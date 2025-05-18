@@ -1,7 +1,5 @@
-pub use input::Input;
+pub use challenge::Challenge;
 pub use parser::Parser;
-pub use solver::Solver;
 
-mod input;
+mod challenge;
 mod parser;
-mod solver;

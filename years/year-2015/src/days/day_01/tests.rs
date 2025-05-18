@@ -1,20 +1,20 @@
+use std::fmt::Debug;
+
 use aoc_core::{
-    components::TextInput,
-    ports::{Parser, Solver},
+    components::{Solution, TextInput, parts::Part1},
+    ports::{Challenge, Parser},
 };
 use proptest::{prelude::*, sample::select};
-
-use crate::solver::Year2015Solver;
 
 use super::input::Day01Input;
 
 proptest! {
     #[test]
-    fn test_part_1((input, expected) in part_01_parameters()) {
+    fn test_part_1((input, expected) in part_parameters::<Part1>()) {
         let input = Day01Input::try_parse(input).unwrap();
-        let solution = Year2015Solver.solve(&input).unwrap();
+        let solution = input.solve().unwrap();
 
-        assert_eq!(*solution.part_01(), expected);
+        assert_eq!(solution, expected);
     }
 }
 
@@ -24,7 +24,7 @@ fn test_part_2() {
     todo!()
 }
 
-fn part_01_parameters() -> impl Strategy<Value = (TextInput, i32)> {
+fn part_parameters<P: ?Sized + Debug>() -> impl Strategy<Value = (TextInput, Solution<P>)> {
     select(&[
         ("(())", 0),
         ("()()", 0),
@@ -36,5 +36,10 @@ fn part_01_parameters() -> impl Strategy<Value = (TextInput, i32)> {
         (")))", -3),
         (")())())", -3),
     ])
-    .prop_map(|(input, expected)| (TextInput::try_new(input).unwrap(), expected))
+    .prop_map(|(input, expected)| {
+        (
+            TextInput::try_new(input).unwrap(),
+            Solution::try_new(expected).unwrap(),
+        )
+    })
 }

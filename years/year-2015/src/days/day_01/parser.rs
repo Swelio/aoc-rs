@@ -15,7 +15,7 @@ impl ports::Parser<TextInput> for Day01Input {
     }
 }
 
-fn parse_input(input: &mut &str) -> winnow::Result<Day01Input> {
+pub fn parse_input(input: &mut &str) -> winnow::Result<Day01Input> {
     let parse_direction = dispatch! {any;
         '(' => empty.value(Direction::Up),
         ')' => empty.value(Direction::Down),

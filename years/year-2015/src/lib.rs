@@ -1,2 +1,2 @@
 pub mod days;
-pub mod solver;
+pub mod input;
