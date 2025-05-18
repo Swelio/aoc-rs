@@ -9,7 +9,6 @@ use aoc_core::{
     ports::{Challenge, Parser},
 };
 use indicatif::{ProgressIterator, ProgressStyle};
-use year_2015::days::day_01::Day01Input;
 
 type RunSolution = Solution<Part1>;
 
@@ -34,8 +33,8 @@ pub fn run(files: &[PathBuf]) -> anyhow::Result<()> {
 fn solve_file<P: AsRef<Path>>(path: P) -> anyhow::Result<DaySolution<RunSolution>> {
     let content = fs::read_to_string(path)?;
     let input = TextInput::try_new(&content)?;
-    let challenge: Box<dyn Challenge<RunSolution>> = Box::new(Day01Input::try_parse(input)?);
-    let solution = challenge.solve()?;
+    let challenge: Box<dyn Challenge<DaySolution<RunSolution>>> =
+        Box::new(year_2015::YearInput::try_parse(input)?);
 
-    Ok(DaySolution::<RunSolution>::new(2015, 1, solution))
+    Ok(challenge.solve()?)
 }

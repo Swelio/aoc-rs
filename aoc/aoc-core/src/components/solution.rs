@@ -3,6 +3,7 @@ use std::marker::PhantomData;
 use crate::SantaResult;
 
 #[derive(Debug, PartialEq, Eq, derive_more::AsRef, serde::Serialize)]
+#[serde(transparent)]
 pub struct Solution<P: ?Sized> {
     #[as_ref(str)]
     value: String,
