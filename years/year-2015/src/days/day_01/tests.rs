@@ -24,7 +24,8 @@ fn test_part_2() {
     todo!()
 }
 
-fn part_parameters<P: ?Sized + Debug>() -> impl Strategy<Value = (TextInput, Solution<P>)> {
+pub(crate) fn part_parameters<P: ?Sized + Debug>() -> impl Strategy<Value = (TextInput, Solution<P>)>
+{
     select(&[
         ("(())", 0),
         ("()()", 0),
