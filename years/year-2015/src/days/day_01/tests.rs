@@ -1,8 +1,12 @@
-use std::fmt::Debug;
-
 use aoc_core::{
-    components::{Solution, TextInput, parts::Part1},
-    ports::{Challenge, Parser},
+    components::{
+        Solution, TextInput,
+        parts::{Part1, Part2},
+    },
+    ports::{
+        Challenge, Parser,
+        tests::{SolutionStrategy, part_parameters},
+    },
 };
 use proptest::{prelude::*, sample::select};
 
@@ -10,37 +14,56 @@ use super::input::Day01Input;
 
 proptest! {
     #[test]
-    fn test_part_1((input, expected) in part_parameters::<Part1>()) {
+    fn test_part_1((input, expected) in part_parameters::<Part1>(&Strategizer)) {
         let input = Day01Input::try_parse(input).unwrap();
-        let solution = input.solve().unwrap();
+        let solution: Solution<Part1> = input.solve().unwrap();
 
         assert_eq!(solution, expected);
     }
 }
 
-#[test]
-#[ignore = "require part 1"]
-fn test_part_2() {
-    todo!()
+proptest! {
+    #[test]
+    #[ignore = "require part 1"]
+    fn test_part_2((input, expected) in part_parameters::<Part2>(&Strategizer)) {
+        let input = Day01Input::try_parse(input).unwrap();
+        let solution: Solution<Part2> = input.solve().unwrap();
+
+        assert_eq!(solution, expected);
+    }
 }
 
-pub(crate) fn part_parameters<P: ?Sized + Debug>() -> impl Strategy<Value = (TextInput, Solution<P>)>
-{
-    select(&[
-        ("(())", 0),
-        ("()()", 0),
-        ("(((", 3),
-        ("(()(()(", 3),
-        ("))(((((", 3),
-        ("())", -1),
-        ("))(", -1),
-        (")))", -3),
-        (")())())", -3),
-    ])
-    .prop_map(|(input, expected)| {
-        (
-            TextInput::try_new(input).unwrap(),
-            Solution::try_new(expected).unwrap(),
-        )
-    })
+pub(crate) struct Strategizer;
+
+impl SolutionStrategy<Part1> for Strategizer {
+    fn strategy(&self) -> impl Strategy<Value = (TextInput, Solution<Part1>)> {
+        select(&[
+            ("(())", 0),
+            ("()()", 0),
+            ("(((", 3),
+            ("(()(()(", 3),
+            ("))(((((", 3),
+            ("())", -1),
+            ("))(", -1),
+            (")))", -3),
+            (")())())", -3),
+        ])
+        .prop_map(|(input, expected)| {
+            (
+                TextInput::try_new(input).unwrap(),
+                Solution::try_new(expected).unwrap(),
+            )
+        })
+    }
+}
+
+impl SolutionStrategy<Part2> for Strategizer {
+    fn strategy(&self) -> impl Strategy<Value = (TextInput, Solution<Part2>)> {
+        select(&[(")", 1), ("()())", 5)]).prop_map(|(input, expected)| {
+            (
+                TextInput::try_new(input).unwrap(),
+                Solution::try_new(expected).unwrap(),
+            )
+        })
+    }
 }

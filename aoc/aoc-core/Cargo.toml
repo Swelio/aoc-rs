@@ -14,5 +14,6 @@ categories.workspace = true
 [dependencies]
 anyhow.workspace = true
 derive_more.workspace = true
+proptest.workspace = true
 serde.workspace = true
 thiserror.workspace = true

@@ -1,6 +1,9 @@
 use aoc_core::{
     SantaResult,
-    components::{Solution, parts::Part1},
+    components::{
+        Solution,
+        parts::{Part1, Part2},
+    },
     ports::Challenge,
 };
 
@@ -16,5 +19,11 @@ impl Challenge<Solution<Part1>> for Day01Input {
             })
             .sum::<i32>())
         .and_then(Solution::try_new)
+    }
+}
+
+impl Challenge<Solution<Part2>> for Day01Input {
+    fn solve(&self) -> SantaResult<Solution<Part2>> {
+        todo!()
     }
 }
