@@ -1,4 +1,5 @@
 use std::{
+    fmt::Debug,
     fs,
     path::{Path, PathBuf},
 };
@@ -21,20 +22,26 @@ pub fn run(files: &[PathBuf]) -> anyhow::Result<()> {
         "[{per_sec}/{elapsed}/{eta}] {wide_bar} {human_pos}/{human_len} {msg}",
     )?;
     let total_files = files.len() as u64;
-    let (solutions, _errors) = files
+    let (solutions, errors) = files
         .iter()
         .progress_count(total_files)
         .with_style(progress_style)
-        .map(solve_file)
+        .map(|path| {
+            solve_file(path).map_err(|err| FileOutput {
+                file: path.to_path_buf(),
+                output: SolverError::new(err),
+            })
+        })
         .partition_result::<Vec<_>, Vec<_>, _, _>();
-    let output = serde_json::to_string_pretty(&solutions)?;
+    let output = SolverOutput { solutions, errors };
+    let render = serde_json::to_string_pretty(&output)?;
 
-    println!("{output}");
+    println!("{render}");
 
     Ok(())
 }
 
-fn solve_file<P: AsRef<Path>>(path: P) -> anyhow::Result<FileSolution> {
+fn solve_file<P: AsRef<Path>>(path: P) -> anyhow::Result<FileOutput<DaySolution<RunSolution>>> {
     let file = path.as_ref().to_path_buf();
     let content = fs::read_to_string(path)?;
     let input = TextInput::try_new(&content)?;
@@ -42,14 +49,38 @@ fn solve_file<P: AsRef<Path>>(path: P) -> anyhow::Result<FileSolution> {
         Box::new(year_2015::YearInput::try_parse(input)?);
 
     let solutions = challenge.solve()?;
-    let result = FileSolution { file, solutions };
 
-    Ok(result)
+    Ok(FileOutput {
+        file,
+        output: solutions,
+    })
 }
 
 #[derive(Debug, serde::Serialize)]
-struct FileSolution {
+struct SolverOutput {
+    solutions: Vec<FileOutput<DaySolution<RunSolution>>>,
+    errors: Vec<FileOutput<SolverError>>,
+}
+
+#[derive(Debug, serde::Serialize)]
+struct SolverError {
+    error: String,
+}
+
+#[derive(Debug, serde::Serialize)]
+struct FileOutput<S>
+where
+    S: Debug + serde::Serialize,
+{
     file: PathBuf,
     #[serde(flatten)]
-    solutions: DaySolution<RunSolution>,
+    output: S,
+}
+
+impl SolverError {
+    pub fn new<T: ToString>(err: T) -> Self {
+        Self {
+            error: err.to_string(),
+        }
+    }
 }
