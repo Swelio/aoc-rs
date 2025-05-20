@@ -19,4 +19,5 @@ derive_more.workspace = true
 winnow.workspace = true
 
 [dev-dependencies]
+aoc-core = { workspace = true, features = ["test"] }
 proptest.workspace = true

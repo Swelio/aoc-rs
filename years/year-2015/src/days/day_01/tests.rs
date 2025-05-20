@@ -24,7 +24,6 @@ proptest! {
 
 proptest! {
     #[test]
-    #[ignore = "require part 1"]
     fn test_part_2((input, expected) in part_parameters::<Part2>(&Strategizer)) {
         let input = Day01Input::try_parse(input).unwrap();
         let solution: Solution<Part2> = input.solve().unwrap();

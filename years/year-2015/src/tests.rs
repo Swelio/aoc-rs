@@ -2,7 +2,10 @@ use std::fmt::Debug;
 
 use aoc_core::{
     archetypes::DaySolution,
-    components::{Solution, TextInput, parts::Part1},
+    components::{
+        Solution, TextInput,
+        parts::{Part1, Part2},
+    },
     ports::{
         Challenge, Parser,
         tests::{SolutionStrategy, part_parameters},
@@ -16,7 +19,7 @@ proptest! {
     #[test]
     fn test_part_1((input, expected) in year_parameters::<Part1>()) {
         let input = YearInput::try_parse(input).unwrap();
-        let solution = input.solve().unwrap();
+        let solution: DaySolution<Solution<Part1>> = input.solve().unwrap();
 
         assert_eq!(solution, expected);
     }
@@ -24,10 +27,9 @@ proptest! {
 
 proptest! {
     #[test]
-    #[ignore = "require part 1"]
-    fn test_part_2((input, expected) in year_parameters::<Part1>()) {
+    fn test_part_2((input, expected) in year_parameters::<Part2>()) {
         let input = YearInput::try_parse(input).unwrap();
-        let solution = input.solve().unwrap();
+        let solution: DaySolution<Solution<Part2>> = input.solve().unwrap();
 
         assert_eq!(solution, expected);
     }

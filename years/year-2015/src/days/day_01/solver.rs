@@ -24,6 +24,22 @@ impl Challenge<Solution<Part1>> for Day01Input {
 
 impl Challenge<Solution<Part2>> for Day01Input {
     fn solve(&self) -> SantaResult<Solution<Part2>> {
-        todo!()
+        Ok(self
+            .into_iter()
+            .map(|direction| match direction {
+                Direction::Up => 1,
+                Direction::Down => -1,
+            })
+            .scan(0, |total, current| {
+                if *total == -1 {
+                    return None;
+                }
+
+                *total += current;
+
+                Some(())
+            })
+            .count())
+        .and_then(Solution::try_new)
     }
 }
