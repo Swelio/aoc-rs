@@ -7,9 +7,9 @@ use aoc_core::{
     ports::Challenge,
 };
 
-use super::{components::Direction, input::Day01Input};
+use super::{components::Direction, input::Input};
 
-impl Challenge<Solution<Part1>> for Day01Input {
+impl Challenge<Solution<Part1>> for Input {
     fn solve(&self) -> SantaResult<Solution<Part1>> {
         Ok(self
             .into_iter()
@@ -22,7 +22,7 @@ impl Challenge<Solution<Part1>> for Day01Input {
     }
 }
 
-impl Challenge<Solution<Part2>> for Day01Input {
+impl Challenge<Solution<Part2>> for Input {
     fn solve(&self) -> SantaResult<Solution<Part2>> {
         Ok(self
             .into_iter()

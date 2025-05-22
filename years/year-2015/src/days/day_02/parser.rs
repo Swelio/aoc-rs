@@ -1,11 +1,11 @@
 use aoc_core::{SantaError, SantaResult, components::TextInput, ports};
 use winnow::{
     Parser,
-    combinator::{dispatch, empty, fail, repeat},
-    token::any,
+    ascii::{digit1, newline},
+    combinator::{separated, seq},
 };
 
-use super::{components::Direction, input::Input};
+use super::{components::Cuboid, input::Input};
 
 impl ports::Parser<TextInput> for Input {
     fn try_parse(input: TextInput) -> SantaResult<Self> {
@@ -16,13 +16,14 @@ impl ports::Parser<TextInput> for Input {
 }
 
 pub fn parse_input(input: &mut &str) -> winnow::Result<Input> {
-    let parse_direction = dispatch! {any;
-        '(' => empty.value(Direction::Up),
-        ')' => empty.value(Direction::Down),
-        _ => fail::<_, Direction, _>,
-    };
-
-    repeat(1.., parse_direction)
+    separated(1.., parse_cuboid, newline)
         .map(Input::new)
+        .parse_next(input)
+}
+
+fn parse_cuboid(input: &mut &str) -> winnow::Result<Cuboid> {
+    let parse_dimension = || digit1.parse_to();
+    seq!(parse_dimension(), _: 'x', parse_dimension(), _: 'x', parse_dimension())
+        .map(|(length, width, height)| Cuboid::new(length, width, height))
         .parse_next(input)
 }

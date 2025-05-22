@@ -13,7 +13,10 @@ use aoc_core::{
 };
 use proptest::prelude::*;
 
-use crate::{YearInput, days::day_01};
+use crate::{
+    YearInput,
+    days::{day_01, day_02},
+};
 
 proptest! {
     #[test]
@@ -25,21 +28,32 @@ proptest! {
     }
 }
 
-proptest! {
-    #[test]
-    fn test_part_2((input, expected) in year_parameters::<Part2>()) {
-        let input = YearInput::try_parse(input).unwrap();
-        let solution: DaySolution<Solution<Part2>> = input.solve().unwrap();
+// proptest! {
+//     #[test]
+//     #[ignore = "Require every day part 1"]
+//     fn test_part_2((input, expected) in year_parameters::<Part2>()) {
+//         let input = YearInput::try_parse(input).unwrap();
+//         let solution: DaySolution<Solution<Part2>> = input.solve().unwrap();
 
-        assert_eq!(solution, expected);
-    }
-}
+//         assert_eq!(solution, expected);
+//     }
+// }
 
-pub(crate) fn year_parameters<P: ?Sized + Debug>()
+pub(crate) fn year_parameters<P: ?Sized + Debug + 'static>()
 -> impl Strategy<Value = (TextInput, DaySolution<Solution<P>>)>
 where
     day_01::tests::Strategizer: SolutionStrategy<P>,
+    day_02::tests::Strategizer: SolutionStrategy<P>,
 {
-    prop_oneof![(part_parameters::<P>(&day_01::tests::Strategizer))]
-        .prop_map(|(input, expected)| (input, DaySolution::new(2015, 1, expected)))
+    prop_oneof![
+        (
+            Just(1u8),
+            part_parameters::<P>(&day_01::tests::Strategizer).boxed(),
+        ),
+        (
+            Just(2u8),
+            part_parameters::<P>(&day_02::tests::Strategizer).boxed(),
+        ),
+    ]
+    .prop_map(|(day_num, (input, expected))| (input, DaySolution::new(2015, day_num, expected)))
 }

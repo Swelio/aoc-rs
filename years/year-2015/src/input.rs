@@ -6,7 +6,7 @@ use aoc_core::{
 };
 use winnow::{Parser, combinator::alt};
 
-use crate::days::day_01::{self, Day01Input};
+use crate::days::{day_01, day_02};
 
 pub struct YearInput<S: ?Sized> {
     inner: Box<dyn Challenge<S>>,
@@ -27,7 +27,8 @@ impl<S> YearInput<S> {
 
 impl<S> ports::Parser<TextInput> for YearInput<S>
 where
-    Day01Input: Challenge<S>,
+    day_01::Input: Challenge<S>,
+    day_02::Input: Challenge<S>,
 {
     fn try_parse(input: TextInput) -> SantaResult<Self> {
         parse_input::<S>
@@ -38,9 +39,14 @@ where
 
 pub fn parse_input<S>(input: &mut &str) -> winnow::Result<YearInput<S>>
 where
-    Day01Input: Challenge<S>,
+    day_01::Input: Challenge<S>,
+    day_02::Input: Challenge<S>,
 {
-    alt((day_01::parse_input.map(|input| YearInput::<S>::new(input, 1)),)).parse_next(input)
+    alt((
+        day_01::parse_input.map(|input| YearInput::<S>::new(input, 1)),
+        day_02::parse_input.map(|input| YearInput::<S>::new(input, 2)),
+    ))
+    .parse_next(input)
 }
 
 impl<S> ports::Challenge<DaySolution<S>> for YearInput<S> {

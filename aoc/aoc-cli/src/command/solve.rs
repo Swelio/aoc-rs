@@ -15,7 +15,8 @@ use aoc_core::{
 use indicatif::{ProgressIterator, ProgressStyle};
 use itertools::Itertools;
 
-type RunSolution = (Solution<Part1>, Solution<Part2>);
+// type RunSolution = (Solution<Part1>, Solution<Part2>);
+type RunSolution = Solution<Part1>;
 
 pub fn run(files: &[PathBuf]) -> anyhow::Result<()> {
     let progress_style = ProgressStyle::with_template(
