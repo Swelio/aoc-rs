@@ -22,16 +22,15 @@ proptest! {
     }
 }
 
-// proptest! {
-//     #[test]
-//     #[ignore = "require part 1"]
-//     fn test_part_2((input, expected) in part_parameters::<Part2>(&Strategizer)) {
-//         let input = Input::try_parse(input).unwrap();
-//         // let solution: Solution<Part2> = input.solve().unwrap();
+proptest! {
+    #[test]
+    fn test_part_2((input, expected) in part_parameters::<Part2>(&Strategizer)) {
+        let input = Input::try_parse(input).unwrap();
+        let solution: Solution<Part2> = input.solve().unwrap();
 
-//         // assert_eq!(solution, expected);
-//     }
-// }
+        assert_eq!(solution, expected);
+    }
+}
 
 pub(crate) struct Strategizer;
 
@@ -46,13 +45,13 @@ impl SolutionStrategy<Part1> for Strategizer {
     }
 }
 
-// impl SolutionStrategy<Part2> for Strategizer {
-//     fn strategy(&self) -> impl Strategy<Value = (TextInput, Solution<Part2>)> {
-//         select(&[(")", 1), ("()())", 5)]).prop_map(|(input, expected)| {
-//             (
-//                 TextInput::try_new(input).unwrap(),
-//                 Solution::try_new(expected).unwrap(),
-//             )
-//         })
-//     }
-// }
+impl SolutionStrategy<Part2> for Strategizer {
+    fn strategy(&self) -> impl Strategy<Value = (TextInput, Solution<Part2>)> {
+        select(&[("2x3x4", 34), ("1x1x10", 14)]).prop_map(|(input, expected)| {
+            (
+                TextInput::try_new(input).unwrap(),
+                Solution::try_new(expected).unwrap(),
+            )
+        })
+    }
+}

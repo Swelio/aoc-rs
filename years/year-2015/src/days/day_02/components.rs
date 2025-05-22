@@ -1,12 +1,12 @@
 #[derive(Debug, Clone, Copy)]
 pub struct Cuboid {
-    pub(super) length: i32,
-    pub(super) width: i32,
-    pub(super) height: i32,
+    pub(super) length: u32,
+    pub(super) width: u32,
+    pub(super) height: u32,
 }
 
 impl Cuboid {
-    pub(super) fn new(length: i32, width: i32, height: i32) -> Self {
+    pub(super) fn new(length: u32, width: u32, height: u32) -> Self {
         Self {
             length,
             width,

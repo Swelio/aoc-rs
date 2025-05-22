@@ -28,16 +28,15 @@ proptest! {
     }
 }
 
-// proptest! {
-//     #[test]
-//     #[ignore = "Require every day part 1"]
-//     fn test_part_2((input, expected) in year_parameters::<Part2>()) {
-//         let input = YearInput::try_parse(input).unwrap();
-//         let solution: DaySolution<Solution<Part2>> = input.solve().unwrap();
+proptest! {
+    #[test]
+    fn test_part_2((input, expected) in year_parameters::<Part2>()) {
+        let input = YearInput::try_parse(input).unwrap();
+        let solution: DaySolution<Solution<Part2>> = input.solve().unwrap();
 
-//         assert_eq!(solution, expected);
-//     }
-// }
+        assert_eq!(solution, expected);
+    }
+}
 
 pub(crate) fn year_parameters<P: ?Sized + Debug + 'static>()
 -> impl Strategy<Value = (TextInput, DaySolution<Solution<P>>)>
