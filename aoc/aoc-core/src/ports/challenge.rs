@@ -10,6 +10,7 @@ pub trait Challenge<S> {
     fn solve(&self) -> SantaResult<S>;
 }
 
+#[diagnostic::do_not_recommend]
 impl<T: ?Sized> Challenge<(Solution<Part1>, Solution<Part2>)> for T
 where
     T: Challenge<Solution<Part1>> + Challenge<Solution<Part2>>,
