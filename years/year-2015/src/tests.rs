@@ -15,7 +15,7 @@ use proptest::prelude::*;
 
 use crate::{
     YearInput,
-    days::{day_01, day_02},
+    days::{day_01, day_02, day_03},
 };
 
 proptest! {
@@ -43,6 +43,7 @@ pub(crate) fn year_parameters<P: ?Sized + Debug + 'static>()
 where
     day_01::tests::Strategizer: SolutionStrategy<P>,
     day_02::tests::Strategizer: SolutionStrategy<P>,
+    day_03::tests::Strategizer: SolutionStrategy<P>,
 {
     prop_oneof![
         (
@@ -52,6 +53,10 @@ where
         (
             Just(2u8),
             part_parameters::<P>(&day_02::tests::Strategizer).boxed(),
+        ),
+        (
+            Just(3u8),
+            part_parameters::<P>(&day_03::tests::Strategizer).boxed(),
         ),
     ]
     .prop_map(|(day_num, (input, expected))| (input, DaySolution::new(2015, day_num, expected)))

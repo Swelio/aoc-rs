@@ -36,7 +36,7 @@ pub(crate) struct Strategizer;
 
 impl SolutionStrategy<Part1> for Strategizer {
     fn strategy(&self) -> impl Strategy<Value = (TextInput, Solution<Part1>)> {
-        select(&[("2x3x4", 58), ("1x1x10", 43)]).prop_map(|(input, expected)| {
+        select(&[(">", 2), ("^>v<", 4), ("^v^v^v^v^v", 2)]).prop_map(|(input, expected)| {
             (
                 TextInput::try_new(input).unwrap(),
                 Solution::try_new(expected).unwrap(),
@@ -47,7 +47,7 @@ impl SolutionStrategy<Part1> for Strategizer {
 
 impl SolutionStrategy<Part2> for Strategizer {
     fn strategy(&self) -> impl Strategy<Value = (TextInput, Solution<Part2>)> {
-        select(&[("2x3x4", 34), ("1x1x10", 14)]).prop_map(|(input, expected)| {
+        select(&[("^v", 3), ("^>v<", 3), ("^v^v^v^v^v", 11)]).prop_map(|(input, expected)| {
             (
                 TextInput::try_new(input).unwrap(),
                 Solution::try_new(expected).unwrap(),

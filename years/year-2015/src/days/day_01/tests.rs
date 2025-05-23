@@ -10,7 +10,7 @@ use aoc_core::{
 };
 use proptest::{prelude::*, sample::select};
 
-use super::input::Input;
+use super::Input;
 
 proptest! {
     #[test]
