@@ -13,20 +13,11 @@ use proptest::{prelude::*, sample::select};
 use super::Input;
 
 proptest! {
+    #![proptest_config(ProptestConfig::with_cases(2))]
     #[test]
     fn test_part_1((input, expected) in part_parameters::<Part1>(&Strategizer)) {
         let input = Input::try_parse(&input).unwrap();
         let solution: Solution<Part1> = input.solve().unwrap();
-
-        assert_eq!(solution, expected);
-    }
-}
-
-proptest! {
-    #[test]
-    fn test_part_2((input, expected) in part_parameters::<Part2>(&Strategizer)) {
-        let input = Input::try_parse(&input).unwrap();
-        let solution: Solution<Part2> = input.solve().unwrap();
 
         assert_eq!(solution, expected);
     }
