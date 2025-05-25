@@ -12,7 +12,6 @@ repository.workspace = true
 categories.workspace = true
 
 [dependencies]
-anyhow.workspace = true
 derive_more.workspace = true
 proptest = { workspace = true, optional = true }
 serde.workspace = true

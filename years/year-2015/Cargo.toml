@@ -13,6 +13,7 @@ categories.workspace = true
 
 [dependencies]
 aoc-core.workspace = true
+aoc-macros.workspace = true
 
 anyhow.workspace = true
 derive_more.workspace = true

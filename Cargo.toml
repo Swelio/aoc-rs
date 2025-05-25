@@ -27,10 +27,12 @@ strip = true
 
 [patch.crates-io]
 aoc-core = { path = "aoc/aoc-core" }
+aoc-macros = { path = "aoc/aoc-macros" }
 year-2015 = { path = "years/year-2015" }
 
 [workspace.dependencies]
 aoc-core = "0.1.0"
+aoc-macros = "0.1.0"
 year-2015 = "0.1.0"
 
 anyhow = "1.0"

@@ -21,7 +21,7 @@ use crate::{
 proptest! {
     #[test]
     fn test_part_1((input, expected) in year_parameters::<Part1>()) {
-        let input = YearInput::try_parse(input).unwrap();
+        let input = YearInput::try_parse(&input).unwrap();
         let solution: DaySolution<Solution<Part1>> = input.solve().unwrap();
 
         assert_eq!(solution, expected);
@@ -31,7 +31,7 @@ proptest! {
 proptest! {
     #[test]
     fn test_part_2((input, expected) in year_parameters::<Part2>()) {
-        let input = YearInput::try_parse(input).unwrap();
+        let input = YearInput::try_parse(&input).unwrap();
         let solution: DaySolution<Solution<Part2>> = input.solve().unwrap();
 
         assert_eq!(solution, expected);

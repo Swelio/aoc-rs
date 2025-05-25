@@ -1,10 +1,10 @@
 use aoc_core::{
-    SantaError, SantaResult,
+    ParsingError, ParsingResult, SantaResult,
     archetypes::DaySolution,
     components::TextInput,
     ports::{self, Challenge},
 };
-use winnow::{Parser, combinator::alt};
+use aoc_macros::combine_parsers;
 
 use crate::days::{day_01, day_02, day_03};
 
@@ -14,42 +14,29 @@ pub struct YearInput<S: ?Sized> {
 }
 
 impl<S> YearInput<S> {
-    fn new<I>(input: I, day: u8) -> Self
-    where
-        I: Challenge<S> + 'static,
-    {
-        Self {
-            day,
-            inner: Box::new(input),
-        }
+    fn new(inner: Box<dyn Challenge<S> + 'static>, day: u8) -> Self {
+        Self { day, inner }
     }
 }
 
-impl<S> ports::Parser<TextInput> for YearInput<S>
+impl<S> ports::Parser<&TextInput> for YearInput<S>
 where
     day_01::Input: Challenge<S>,
     day_02::Input: Challenge<S>,
     day_03::Input: Challenge<S>,
 {
-    fn try_parse(input: TextInput) -> SantaResult<Self> {
-        parse_input::<S>
-            .parse(input.as_ref())
-            .map_err(|err| SantaError::ParsingError(anyhow::format_err!("{err}")))
-    }
-}
+    fn try_parse(input: &TextInput) -> ParsingResult<Self> {
+        let parser = combine_parsers!(
+            Box<dyn Challenge<S> + 'static>,
+            day_01::Input,
+            day_02::Input,
+            day_03::Input
+        );
 
-pub fn parse_input<S>(input: &mut &str) -> winnow::Result<YearInput<S>>
-where
-    day_01::Input: Challenge<S>,
-    day_02::Input: Challenge<S>,
-    day_03::Input: Challenge<S>,
-{
-    alt((
-        day_01::parse_input.map(|input| YearInput::<S>::new(input, 1)),
-        day_02::parse_input.map(|input| YearInput::<S>::new(input, 2)),
-        day_03::parse_input.map(|input| YearInput::<S>::new(input, 3)),
-    ))
-    .parse_next(input)
+        parser(input)
+            .map(|solver: Box<dyn Challenge<S> + 'static>| YearInput::<S>::new(solver, 1))
+            .map_err(|err| ParsingError::from(err.to_string()))
+    }
 }
 
 impl<S> ports::Challenge<DaySolution<S>> for YearInput<S> {

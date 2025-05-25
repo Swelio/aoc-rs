@@ -1,4 +1,4 @@
-use aoc_core::{SantaError, SantaResult, components::TextInput, ports};
+use aoc_core::{ParsingError, ParsingResult, components::TextInput, ports};
 use winnow::{
     Parser,
     combinator::{dispatch, empty, fail, repeat},
@@ -7,11 +7,11 @@ use winnow::{
 
 use super::{Input, components::NextMove};
 
-impl ports::Parser<TextInput> for Input {
-    fn try_parse(input: TextInput) -> SantaResult<Self> {
+impl ports::Parser<&TextInput> for Input {
+    fn try_parse(input: &TextInput) -> ParsingResult<Self> {
         parse_input
             .parse(input.as_ref())
-            .map_err(|err| SantaError::ParsingError(anyhow::format_err!("{err}")))
+            .map_err(|err| ParsingError::from(err.to_string()))
     }
 }
 
