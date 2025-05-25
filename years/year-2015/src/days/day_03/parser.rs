@@ -15,7 +15,7 @@ impl ports::Parser<&TextInput> for Input {
     }
 }
 
-pub fn parse_input(input: &mut &str) -> winnow::Result<Input> {
+fn parse_input(input: &mut &str) -> winnow::Result<Input> {
     repeat(1.., parse_move).map(Input::new).parse_next(input)
 }
 

@@ -1,5 +1,4 @@
 pub use input::Input;
-pub use parser::parse_input;
 
 mod components;
 mod input;
