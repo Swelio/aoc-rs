@@ -3,6 +3,8 @@ pub type ParsingResult<T> = Result<T, ParsingError>;
 
 #[derive(Debug, thiserror::Error)]
 pub enum SantaError {
+    #[error("provided value is zero")]
+    CannotBeZero,
     #[error("input is empty")]
     EmptyInput,
     #[error(transparent)]

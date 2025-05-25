@@ -46,7 +46,9 @@ fn solve_file<P: AsRef<Path>>(path: P) -> anyhow::Result<FileOutput<DaySolution<
     let content = fs::read_to_string(path)?;
     let input = TextInput::try_new(&content)?;
     let challenge: Box<dyn Challenge<DaySolution<RunSolution>>> =
-        Box::new(year_2015::YearInput::try_parse(&input)?);
+        Box::new(year_2015::YearInput::<DaySolution<RunSolution>>::try_parse(
+            &input,
+        )?);
 
     let solutions = challenge.solve()?;
 

@@ -1,8 +1,8 @@
 use aoc_core::{ParsingError, ParsingResult, components::TextInput, ports};
 use winnow::{
     Parser,
-    ascii::{digit1, newline},
-    combinator::{separated, seq},
+    ascii::{digit1, multispace0, newline},
+    combinator::{separated, seq, terminated},
 };
 
 use super::{components::Cuboid, input::Input};
@@ -16,7 +16,7 @@ impl ports::Parser<&TextInput> for Input {
 }
 
 pub fn parse_input(input: &mut &str) -> winnow::Result<Input> {
-    separated(1.., parse_cuboid, newline)
+    terminated(separated(1.., parse_cuboid, newline), multispace0)
         .map(Input::new)
         .parse_next(input)
 }
