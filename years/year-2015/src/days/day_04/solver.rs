@@ -1,3 +1,6 @@
+use std::fmt::Write as FmtWrite;
+use std::io::Write as IOWrite;
+
 use aoc_core::{
     SantaResult,
     components::{
@@ -6,7 +9,7 @@ use aoc_core::{
     },
     ports::Challenge,
 };
-use md5::{Digest, Md5};
+use md5::{Digest, Md5, digest::generic_array::GenericArray};
 
 use super::Input;
 
@@ -27,21 +30,24 @@ impl Challenge<Solution<Part2>> for Input {
 }
 
 fn bruteforce(key: &str, pattern: &str) -> String {
-    let hasher = Md5::new_with_prefix(key);
+    let mut hasher = Md5::new();
+    let mut digest = [0u8; 16];
+    let mut hash = String::new();
 
     (1u64..)
-        .find_map(|suffix| {
-            let mut hasher = hasher.clone();
-            let suffix = suffix.to_string();
-            hasher.update(&suffix);
-            let hash = hasher
-                .finalize()
-                .into_iter()
-                .map(|byte| format!("{byte:02X}"))
-                .take(pattern.len())
-                .collect::<String>();
+        .find(|suffix| {
+            let _ = write!(&mut hasher, "{key}{suffix}");
+            hasher.finalize_into_reset(GenericArray::from_mut_slice(&mut digest));
+            hash.clear();
+            digest
+                .iter()
+                .take((pattern.len() / 2) + 1)
+                .for_each(|byte| {
+                    let _ = write!(&mut hash, "{byte:02X}");
+                });
 
-            (hash.starts_with(pattern)).then_some(suffix)
+            hash.starts_with(pattern)
         })
         .expect("iterator is never empty")
+        .to_string()
 }
