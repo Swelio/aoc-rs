@@ -17,6 +17,7 @@ aoc-macros.workspace = true
 
 anyhow.workspace = true
 derive_more.workspace = true
+rayon.workspace = true
 winnow.workspace = true
 
 md-5 = "0.10.6"
