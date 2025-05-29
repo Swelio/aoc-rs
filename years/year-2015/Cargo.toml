@@ -21,6 +21,7 @@ rayon.workspace = true
 winnow.workspace = true
 
 md-5 = "0.10.6"
+regex = "1.11.1"
 
 [dev-dependencies]
 aoc-core = { workspace = true, features = ["test"] }

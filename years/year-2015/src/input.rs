@@ -5,7 +5,7 @@ use aoc_core::{
 };
 use aoc_macros::combine_parsers;
 
-use crate::days::{day_01, day_02, day_03, day_04};
+use crate::days::*;
 
 pub struct YearInput<S: ?Sized>(Box<dyn Challenge<S>>);
 
@@ -21,6 +21,7 @@ where
     day_02::Input: Challenge<S>,
     day_03::Input: Challenge<S>,
     day_04::Input: Challenge<S>,
+    day_05::Input: Challenge<S>,
 {
     fn try_parse(input: &TextInput) -> ParsingResult<Self> {
         let parser = combine_parsers!(
@@ -28,7 +29,8 @@ where
             day_01::Input,
             day_02::Input,
             day_03::Input,
-            day_04::Input
+            day_04::Input,
+            day_05::Input
         );
 
         parser(input)
