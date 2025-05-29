@@ -1,8 +1,5 @@
 use aoc_core::{
-    components::{
-        Solution, TextInput,
-        parts::{Part1, Part2},
-    },
+    components::{Solution, TextInput, parts::Part1},
     ports::{
         Challenge, Parser,
         tests::{SolutionStrategy, part_parameters},
@@ -28,17 +25,6 @@ pub(crate) struct Strategizer;
 impl SolutionStrategy<Part1> for Strategizer {
     fn strategy(&self) -> impl Strategy<Value = (TextInput, Solution<Part1>)> {
         select(&[("abcdef", "609043"), ("pqrstuv", "1048970")]).prop_map(|(input, expected)| {
-            (
-                TextInput::try_new(input).unwrap(),
-                Solution::try_new(expected).unwrap(),
-            )
-        })
-    }
-}
-
-impl SolutionStrategy<Part2> for Strategizer {
-    fn strategy(&self) -> impl Strategy<Value = (TextInput, Solution<Part2>)> {
-        select(&[("", "")]).prop_map(|(input, expected)| {
             (
                 TextInput::try_new(input).unwrap(),
                 Solution::try_new(expected).unwrap(),
