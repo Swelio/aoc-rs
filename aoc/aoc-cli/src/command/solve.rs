@@ -24,14 +24,14 @@ pub fn run(files: &[PathBuf]) -> anyhow::Result<()> {
     let total_files = files.len() as u64;
     let (solutions, errors) = files
         .iter()
-        .progress_count(total_files)
-        .with_style(progress_style)
         .map(|path| {
             solve_file(path).map_err(|err| FileOutput {
                 file: path.to_path_buf(),
                 output: SolverError::new(err),
             })
         })
+        .progress_count(total_files)
+        .with_style(progress_style)
         .partition_result::<Vec<_>, Vec<_>, _, _>();
     let output = SolverOutput { solutions, errors };
     let render = serde_json::to_string_pretty(&output)?;
