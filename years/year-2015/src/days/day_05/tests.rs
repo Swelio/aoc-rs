@@ -1,3 +1,5 @@
+use std::borrow::Cow;
+
 use aoc_core::{
     components::{
         Solution, TextInput,
@@ -10,7 +12,10 @@ use aoc_core::{
 };
 use proptest::{prelude::*, sample::select};
 
-use super::Input;
+use super::{
+    Input,
+    solver::tests::{repeated_letter_builder, unoverlapping_letters_pair_builder},
+};
 
 proptest! {
     #[test]
@@ -54,17 +59,31 @@ impl SolutionStrategy<Part1> for Strategizer {
 
 impl SolutionStrategy<Part2> for Strategizer {
     fn strategy(&self) -> impl Strategy<Value = (TextInput, Solution<Part2>)> {
-        select(&[
-            ("qjhvhtzxzqqjkmpb", "1"),
-            ("xxyxx", "1"),
-            ("uurcxstgmygtbstg", "0"),
-            ("ieodomkazucvgmuy", "0"),
-        ])
+        prop_oneof![
+            nice_string_builder().prop_map(|string| (Cow::from(string), "1")),
+            select(&[
+                ("qjhvhtzxzqqjkmpb", "1"),
+                ("xxyxx", "1"),
+                ("uurcxstgmygtbstg", "0"),
+                ("ieodomkazucvgmuy", "0"),
+                ("aaaa", "1"),
+                ("aaabcb", "0"),
+            ])
+            .prop_map(|(string, response)| (string.into(), response))
+        ]
         .prop_map(|(input, expected)| {
             (
-                TextInput::try_new(input).unwrap(),
+                TextInput::try_new(&input).unwrap(),
                 Solution::try_new(expected).unwrap(),
             )
         })
+    }
+}
+
+prop_compose! {
+    fn nice_string_builder()
+    (pair in unoverlapping_letters_pair_builder(), repeated_letter in repeated_letter_builder())
+    -> String {
+        format!("{pair}{repeated_letter}")
     }
 }
