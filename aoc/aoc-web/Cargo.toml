@@ -1,0 +1,16 @@
+lints.workspace = true
+
+[package]
+name = "aoc-web"
+description.workspace = true
+authors.workspace = true
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+keywords.workspace = true
+repository.workspace = true
+categories.workspace = true
+
+[dependencies]
+sycamore = { version = "0.9.1", features = ["hydrate", "serde", "suspense"] }
+yew = { version = "0.21.0", features = ["csr", "hydration"] }
