@@ -1,9 +1,20 @@
 use crate::components::{Day, Year};
 
 #[derive(
-    Debug, PartialEq, Eq, Hash, PartialOrd, Ord, serde::Serialize, derive_more::Constructor,
+    Debug,
+    Clone,
+    Copy,
+    PartialEq,
+    Eq,
+    Hash,
+    PartialOrd,
+    Ord,
+    serde::Serialize,
+    derive_more::Constructor,
+    derive_more::Display,
 )]
+#[display("{year}/{day}")]
 pub struct DayIdentity {
-    year: Year,
-    day: Day,
+    pub year: Year,
+    pub day: Day,
 }

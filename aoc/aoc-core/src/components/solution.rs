@@ -2,8 +2,11 @@ use std::marker::PhantomData;
 
 use crate::SantaResult;
 
-#[derive(Debug, PartialEq, Eq, derive_more::AsRef, serde::Serialize)]
+#[derive(
+    Debug, Clone, PartialEq, Eq, derive_more::AsRef, serde::Serialize, derive_more::Display,
+)]
 #[serde(transparent)]
+#[display("{value}")]
 pub struct Solution<P: ?Sized> {
     #[as_ref(str)]
     value: String,

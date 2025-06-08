@@ -1,9 +1,6 @@
 {
     "name": "aoc-rs",
-    "build": {
-        "dockerfile": "Dockerfile",
-        "context": "."
-    },
+    "image": "ghcr.io/swelio/dev-images/base/rust-wasm:latest",
     "containerUser": "dev",
     "workspaceFolder": "/workspace",
     "overrideCommand": true,

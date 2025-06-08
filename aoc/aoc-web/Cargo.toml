@@ -12,5 +12,10 @@ repository.workspace = true
 categories.workspace = true
 
 [dependencies]
+aoc-core.workspace = true
+year-2015.workspace = true
+
+derive_more.workspace = true
+thiserror.workspace = true
+
 sycamore = { version = "0.9.1", features = ["hydrate", "serde", "suspense"] }
-yew = { version = "0.21.0", features = ["csr", "hydration"] }

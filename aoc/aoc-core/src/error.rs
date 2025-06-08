@@ -1,7 +1,7 @@
 pub type SantaResult<T> = Result<T, SantaError>;
 pub type ParsingResult<T> = Result<T, ParsingError>;
 
-#[derive(Debug, thiserror::Error)]
+#[derive(Debug, Clone, thiserror::Error)]
 pub enum SantaError {
     #[error("provided value is zero")]
     CannotBeZero,
@@ -11,7 +11,7 @@ pub enum SantaError {
     Parsing(#[from] ParsingError),
 }
 
-#[derive(Debug, thiserror::Error)]
+#[derive(Debug, Clone, thiserror::Error)]
 #[error("{0}")]
 pub struct ParsingError(String);
 

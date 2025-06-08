@@ -1,6 +1,6 @@
 use crate::error::{SantaError, SantaResult};
 
-#[derive(Debug, derive_more::AsRef)]
+#[derive(Debug, Clone, derive_more::AsRef)]
 #[as_ref(str)]
 pub struct TextInput(String);
 

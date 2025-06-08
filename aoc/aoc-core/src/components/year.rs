@@ -9,5 +9,6 @@
     Ord,
     serde::Serialize,
     derive_more::Constructor,
+    derive_more::Display,
 )]
 pub struct Year(i32);
