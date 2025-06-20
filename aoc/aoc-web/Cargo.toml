@@ -17,5 +17,7 @@ year-2015.workspace = true
 
 derive_more.workspace = true
 thiserror.workspace = true
+uuid.workspace = true
 
+async-trait = "0.1.88"
 sycamore = { version = "0.9.1", features = ["hydrate", "serde", "suspense"] }

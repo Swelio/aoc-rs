@@ -1,84 +1,57 @@
+mod failure;
+mod form;
+mod resolution;
+mod solution;
+
 use aoc_core::{
-    SantaError,
     archetypes::DaySolution,
     components::{
         Solution, TextInput,
         parts::{Part1, Part2},
     },
-    ports::{Challenge, Parser},
 };
-use sycamore::{prelude::*, web::events::KeyboardEvent};
+use sycamore::{prelude::*, web::create_isomorphic_resource};
 
-use crate::error::WebResult;
+use crate::{adapters::sycamore::ChallengeId, error::WebResult};
 
-#[component]
-pub fn Challenge<S>() -> View
+use failure::ChallengeFailure;
+use form::ChallengeForm;
+use resolution::ChallengeResolution;
+use solution::ChallengeSolution;
+
+#[component(inline_props)]
+pub fn Challenge<S>(id: ChallengeId, solver: S) -> View
 where
-    for<'a> S: Parser<&'a TextInput>
-        + Challenge<DaySolution<(Solution<Part1>, Solution<Part2>)>>
+    S: AsyncFn(TextInput) -> WebResult<DaySolution<(Solution<Part1>, Solution<Part2>)>>
+        + Copy
         + 'static,
 {
-    let result = create_signal(None);
-    let submission = move |input: String| {
-        if result.with(|value| value.is_some()) {
+    let input = create_signal(None::<TextInput>);
+    let result = create_isomorphic_resource(move || async move {
+        match input.take() {
+            None => None,
+            Some(input) => Some(solver(input).await),
+        }
+    });
+
+    let submit = move |form_input: String| {
+        if input.with_untracked(|value| value.is_some()) {
             return;
         }
 
-        result.set(Some(submit_challenge::<S>(&input)));
+        if let Ok(form_input) = form_input.try_into() {
+            input.set(Some(form_input));
+        }
     };
 
     view! {
-        (match result.get_clone() {
-        None => ChallengeInput(submission),
-        Some(Err(err)) => {
-            view! {
-                p { "Error occurred while processing challenge input: " (err.to_string()) }
-            }
-        }
-        Some(Ok(solution)) => view! {
-            p {
-                "Day: " (solution.identity.to_string())
-            }
-            p {
-                "Part 1: " (solution.solutions.0.to_string())
-            }
-            p {
-                "Part 2: " (solution.solutions.1.to_string())
-            }
-        },
-    })
-    }
-}
-
-#[component]
-fn ChallengeInput<F>(submit: F) -> View
-where
-    F: Fn(String) + Copy + 'static,
-{
-    let input = create_signal(String::new());
-    let on_keydown = move |ev: KeyboardEvent| {
-        (ev.key() == "Enter" && (ev.meta_key() || ev.ctrl_key()) && !input.with(String::is_empty))
-            .then(|| {
-                submit(input.take());
-            });
-    };
-
-    view! {
-        div {
-            "New challenge:"
-            textarea(bind:value=input, on:keydown=on_keydown, enterkeyhint="send")
+        div(class="challenge") {
+            (match result.get_clone() {
+                None => view! { ChallengeForm(id=id, submit=submit) },
+                Some(None) => ChallengeResolution(),
+                Some(Some(Err(err))) => ChallengeFailure(err),
+                Some(Some(Ok(solution))) => ChallengeSolution(solution)
+            })
         }
     }
-}
-
-fn submit_challenge<S>(input: &str) -> WebResult<DaySolution<(Solution<Part1>, Solution<Part2>)>>
-where
-    for<'a> S: Parser<&'a TextInput>
-        + Challenge<DaySolution<(Solution<Part1>, Solution<Part2>)>>
-        + 'static,
-{
-    let input = TextInput::try_new(input)?;
-    let input = S::try_parse(&input).map_err(SantaError::from)?;
-
-    Ok(S::solve(&input)?)
 }

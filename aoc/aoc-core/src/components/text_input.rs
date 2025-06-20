@@ -13,3 +13,11 @@ impl TextInput {
         Ok(Self(input.to_string()))
     }
 }
+
+impl TryFrom<String> for TextInput {
+    type Error = SantaError;
+
+    fn try_from(value: String) -> Result<Self, Self::Error> {
+        Self::try_new(&value)
+    }
+}
