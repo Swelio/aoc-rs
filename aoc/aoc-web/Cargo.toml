@@ -21,3 +21,6 @@ uuid.workspace = true
 
 async-trait = "0.1.88"
 sycamore = { version = "0.9.1", features = ["hydrate", "serde", "suspense"] }
+
+[target.'cfg(target_family = "wasm")'.dependencies]
+uuid = { workspace = true, features = ["js"] }

@@ -13,5 +13,20 @@ minify = "on_release"       # Control minification: can be one of: never, on_rel
 no_sri = false              # Allow disabling
 
 [watch]
-watch = ["src"]  # Paths to watch. The `build.target`'s parent folder is watched by default.
+watch = ["src", "index.html", "index.css"]  # Paths to watch. The `build.target`'s parent folder is watched by default.
 ignore = [] # Paths to ignore.
+
+[tools]
+sass = "1.89.2"
+wasm-bindgen = "0.2.100"
+
+[[hooks]]
+stage = "pre_build"
+command = "bun"
+command_arguments = [
+    "x",
+    "tailwindcss", 
+    "--minify",
+    "--input=./index.css",
+    "--output=./bundle.css"
+]

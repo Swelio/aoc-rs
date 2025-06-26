@@ -22,7 +22,7 @@ impl WasmRender for App {
 
 #[component]
 fn AppComponent() -> View {
-    let challenges: Signal<Vec<ChallengeId>> = create_signal(Vec::new());
+    let challenges: Signal<Vec<ChallengeId>> = create_signal(vec![ChallengeId::new()]);
     let rendered_challenges = view! {
         ul {
             Keyed(
