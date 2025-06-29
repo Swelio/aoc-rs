@@ -10,7 +10,10 @@ use aoc_core::{
         parts::{Part1, Part2},
     },
 };
-use sycamore::{prelude::*, web::create_isomorphic_resource};
+use sycamore::{
+    prelude::*,
+    web::{Transition, create_isomorphic_resource},
+};
 
 use crate::{adapters::sycamore::ChallengeId, error::WebResult};
 
@@ -45,10 +48,9 @@ where
     };
 
     view! {
-        div(class="challenge") {
+        Transition(fallback=ChallengeResolution) {
             (match result.get_clone() {
-                None => view! { ChallengeForm(id=id, submit=submit) },
-                Some(None) => ChallengeResolution(),
+                Some(None) | None => view! { ChallengeForm(id=id, submit=submit) },
                 Some(Some(Err(err))) => ChallengeFailure(err),
                 Some(Some(Ok(solution))) => ChallengeSolution(solution)
             })

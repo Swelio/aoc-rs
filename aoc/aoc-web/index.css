@@ -1,5 +1,53 @@
 @import "tailwindcss";
 
+#app {
+    padding: 1.3rem;
+}
+
+.challenges {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 0.7rem;
+    justify-content: start;
+    align-items: start;
+}
+
 .challenge {
-    @apply block rounded-md border border-gray-300 p-4 shadow-sm sm:p-6;
+    @apply rounded-md border border-gray-300 p-4 shadow-sm bg-white;
+    transition: 0.3s;
+
+    &:hover {
+        transform: translateY(-0.3rem);
+    }
+}
+
+.challenge form {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+
+    gap: 0.7rem;
+
+    @apply text-gray-700;
+}
+
+.challenge-input {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 0.5rem;
+}
+
+.challenge-input textarea {
+    @apply rounded-md inset-shadow-sm bg-cyan-100;
+    resize: none;
+}
+
+.challenge-submit {
+    @apply border rounded-md border-cyan-200 bg-cyan-100 px-2.5;
+    transition: 0.3s;
+
+    &:hover {
+        @apply bg-cyan-200;
+    }
 }

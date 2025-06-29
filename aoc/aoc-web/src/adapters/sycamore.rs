@@ -22,13 +22,13 @@ impl WasmRender for App {
 
 #[component]
 fn AppComponent() -> View {
-    let challenges: Signal<Vec<ChallengeId>> = create_signal(vec![ChallengeId::new()]);
+    let challenges: Signal<Vec<ChallengeId>> = create_signal(vec![ChallengeId::new(); 14]);
     let rendered_challenges = view! {
-        ul {
+        ul(class="challenges") {
             Keyed(
                 list=challenges,
                 view=|id| view! {
-                    li { Challenge(id=id, solver=solve) }
+                    li(class="challenge") { Challenge(id=id, solver=solve) }
                 },
                 key=|id| *id,
             )
@@ -36,7 +36,7 @@ fn AppComponent() -> View {
     };
 
     view! {
-        div {
+        div(id="app") {
             (rendered_challenges)
         }
     }

@@ -17,13 +17,13 @@ where
             ev.prevent_default();
             submit(input.take());
         }) {
-            div {
+            div(class="challenge-input") {
                 label("for"=label_id) {
                     "Challenge input"
                 }
-                textarea(id=input_id, bind:value=input) {}
+                textarea(id=input_id, bind:value=input, rows="3") {}
             }
-            button("type"="submit") {
+            button(class="challenge-submit", "type"="submit") {
                 "Solve"
             }
         }
