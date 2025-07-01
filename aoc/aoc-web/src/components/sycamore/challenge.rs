@@ -30,12 +30,12 @@ where
         + 'static,
 {
     let input = create_signal(None::<TextInput>);
-    let result = create_isomorphic_resource(move || async move {
-        match input.take() {
+    let result = create_isomorphic_resource(on(input, move || async move {
+        match input.get_clone() {
             None => None,
             Some(input) => Some(solver(input).await),
         }
-    });
+    }));
 
     let submit = move |form_input: String| {
         if input.with_untracked(|value| value.is_some()) {
