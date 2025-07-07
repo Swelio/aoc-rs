@@ -143,6 +143,7 @@ dependencies = [
  "sycamore",
  "thiserror",
  "uuid",
+ "web-sys",
  "year-2015",
 ]
 

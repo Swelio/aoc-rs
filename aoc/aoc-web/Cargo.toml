@@ -1,26 +1,27 @@
 lints.workspace = true
 
 [package]
-name = "aoc-web"
+authors.workspace     = true
+categories.workspace  = true
 description.workspace = true
-authors.workspace = true
-version.workspace = true
-edition.workspace = true
-license.workspace = true
-keywords.workspace = true
-repository.workspace = true
-categories.workspace = true
+edition.workspace     = true
+keywords.workspace    = true
+license.workspace     = true
+name                  = "aoc-web"
+repository.workspace  = true
+version.workspace     = true
 
 [dependencies]
-aoc-core.workspace = true
+aoc-core.workspace  = true
 year-2015.workspace = true
 
 derive_more.workspace = true
-thiserror.workspace = true
-uuid.workspace = true
+thiserror.workspace   = true
+uuid.workspace        = true
 
 async-trait = "0.1.88"
-sycamore = { version = "0.9.1", features = ["hydrate", "serde", "suspense"] }
+sycamore    = { version = "0.9.1", features = [ "hydrate", "serde", "suspense" ] }
+web-sys     = { version = "0.3.77", features = [ "HtmlDialogElement" ] }
 
 [target.'cfg(target_family = "wasm")'.dependencies]
-uuid = { workspace = true, features = ["js"] }
+uuid = { workspace = true, features = [ "js" ] }
