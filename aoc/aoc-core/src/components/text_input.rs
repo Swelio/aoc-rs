@@ -5,8 +5,8 @@ use crate::error::{SantaError, SantaResult};
 pub struct TextInput(String);
 
 impl TextInput {
-    pub fn try_new(input: &str) -> SantaResult<Self> {
-        if input.is_empty() {
+    pub fn try_new<I: AsRef<str> + ToString>(input: I) -> SantaResult<Self> {
+        if input.as_ref().is_empty() {
             return Err(SantaError::EmptyInput);
         }
 
@@ -18,6 +18,6 @@ impl TryFrom<String> for TextInput {
     type Error = SantaError;
 
     fn try_from(value: String) -> Result<Self, Self::Error> {
-        Self::try_new(&value)
+        Self::try_new(value)
     }
 }

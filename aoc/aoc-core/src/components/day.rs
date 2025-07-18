@@ -2,10 +2,8 @@ use std::num::NonZeroU8;
 
 use crate::{SantaError, SantaResult};
 
-#[derive(
-    Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord, serde::Serialize, derive_more::Display,
-)]
-#[display("{_0:02}")]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord, derive_more::Into)]
+#[into(u8, NonZeroU8)]
 pub struct Day(NonZeroU8);
 
 impl Day {

@@ -11,7 +11,10 @@ pub struct Input(#[into_iterator(owned, ref)] Vec<Line>);
 
 impl Identity for Input {
     fn get_identity() -> aoc_core::archetypes::DayIdentity {
-        DayIdentity::new(Year::new(2015), Day::try_new(5).expect("must be valid"))
+        DayIdentity::new(
+            Year::try_new(2015).expect("must be valid"),
+            Day::try_new(5).expect("must be valid"),
+        )
     }
 }
 

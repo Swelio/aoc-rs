@@ -11,6 +11,7 @@ use aoc_core::{
         parts::{Part1, Part2},
     },
     ports::{Challenge, Parser},
+    views::SolutionView,
 };
 use indicatif::{ProgressIterator, ProgressStyle};
 use itertools::Itertools;
@@ -41,7 +42,7 @@ pub fn run(files: &[PathBuf]) -> anyhow::Result<()> {
     Ok(())
 }
 
-fn solve_file<P: AsRef<Path>>(path: P) -> anyhow::Result<FileOutput<DaySolution<RunSolution>>> {
+fn solve_file<P: AsRef<Path>>(path: P) -> anyhow::Result<FileOutput<SolutionView>> {
     let file = path.as_ref().to_path_buf();
     let content = fs::read_to_string(path)?;
     let input = TextInput::try_new(&content)?;
@@ -49,18 +50,17 @@ fn solve_file<P: AsRef<Path>>(path: P) -> anyhow::Result<FileOutput<DaySolution<
         Box::new(year_2015::YearInput::<DaySolution<RunSolution>>::try_parse(
             &input,
         )?);
-
-    let solutions = challenge.solve()?;
+    let solution = challenge.solve()?;
 
     Ok(FileOutput {
         file,
-        output: solutions,
+        output: solution.into(),
     })
 }
 
 #[derive(Debug, serde::Serialize)]
 struct SolverOutput {
-    solutions: Vec<FileOutput<DaySolution<RunSolution>>>,
+    solutions: Vec<FileOutput<SolutionView>>,
     errors: Vec<FileOutput<SolverError>>,
 }
 

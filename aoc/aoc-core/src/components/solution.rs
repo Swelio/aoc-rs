@@ -2,15 +2,10 @@ use std::marker::PhantomData;
 
 use crate::SantaResult;
 
-#[derive(
-    Debug, Clone, PartialEq, Eq, derive_more::AsRef, serde::Serialize, derive_more::Display,
-)]
-#[serde(transparent)]
-#[display("{value}")]
+#[derive(Debug, Clone, PartialEq, Eq, derive_more::Into)]
 pub struct Solution<P: ?Sized> {
-    #[as_ref(str)]
+    #[into]
     value: String,
-    #[serde(skip)]
     part: PhantomData<P>,
 }
 
@@ -22,7 +17,7 @@ impl<P: ?Sized> Solution<P> {
         let solution = solution.to_string();
 
         if solution.is_empty() {
-            return Err(crate::SantaError::EmptyInput);
+            return Err(crate::SantaError::EmptySolution);
         }
 
         Ok(Self {
