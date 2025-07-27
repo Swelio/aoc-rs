@@ -15,15 +15,17 @@ use crate::archetypes::DayIdentity;
 )]
 #[display("{year}/{day:02}")]
 pub struct IdentityView {
-    year: i32,
-    day: u8,
+    pub year: i32,
+    pub day: u8,
 }
 
 impl From<DayIdentity> for IdentityView {
     fn from(domain: DayIdentity) -> Self {
+        let (year, day) = domain.into();
+
         Self {
-            year: domain.year.into(),
-            day: domain.day.into(),
+            year: year.into(),
+            day: day.into(),
         }
     }
 }

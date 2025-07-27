@@ -1,7 +1,8 @@
 use super::DayIdentity;
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, derive_more::Constructor)]
+#[derive(Debug, Clone, PartialEq, Eq, derive_more::Constructor, derive_more::Into)]
+#[into((DayIdentity, S))]
 pub struct DaySolution<S> {
-    pub identity: DayIdentity,
-    pub solutions: S,
+    identity: DayIdentity,
+    solutions: S,
 }

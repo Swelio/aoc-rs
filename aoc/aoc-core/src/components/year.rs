@@ -1,6 +1,6 @@
 use crate::SantaResult;
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord, derive_more::Into)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, derive_more::Into)]
 pub struct Year(i32);
 
 impl Year {

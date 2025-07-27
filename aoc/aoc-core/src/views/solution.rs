@@ -4,20 +4,23 @@ use crate::{
         Solution,
         parts::{Part1, Part2},
     },
-    views::IdentityView,
+    views::{IdentityView, SolutionPart},
 };
 
-#[derive(Debug, Clone, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
+#[derive(
+    Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, serde::Serialize, serde::Deserialize,
+)]
 pub struct SolutionView {
-    identity: IdentityView,
-    solutions: Vec<String>,
+    pub identity: IdentityView,
+    pub solutions: Vec<SolutionPart>,
 }
 
 impl From<DaySolution<(Solution<Part1>, Solution<Part2>)>> for SolutionView {
     fn from(domain: DaySolution<(Solution<Part1>, Solution<Part2>)>) -> Self {
-        let identity = domain.identity.into();
-        let (part_one, part_two) = domain.solutions;
-        let solutions = vec![part_one.into(), part_two.into()];
+        let (identity, solutions) = domain.into();
+
+        let identity = identity.into();
+        let solutions = vec![solutions.0.into(), solutions.1.into()];
 
         Self {
             identity,

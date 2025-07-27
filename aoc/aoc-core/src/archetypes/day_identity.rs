@@ -1,7 +1,19 @@
 use crate::components::{Day, Year};
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord, derive_more::Constructor)]
+#[derive(
+    Debug,
+    Clone,
+    Copy,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    derive_more::Constructor,
+    derive_more::Into,
+)]
+#[into((Year, Day))]
 pub struct DayIdentity {
-    pub year: Year,
-    pub day: Day,
+    year: Year,
+    day: Day,
 }

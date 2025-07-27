@@ -2,7 +2,7 @@ use std::marker::PhantomData;
 
 use crate::SantaResult;
 
-#[derive(Debug, Clone, PartialEq, Eq, derive_more::Into)]
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, derive_more::Into)]
 pub struct Solution<P: ?Sized> {
     #[into]
     value: String,
