@@ -25,16 +25,9 @@
             "type": "bind"
         },
         {
-            "type": "tmpfs",
-            "target": "/run"
-        },
-        {
-            "type": "tmpfs",
-            "target": "/tmp"
-        },
-        {
-            "type": "tmpfs",
-            "target": "/var/tmp"
+            "source": "devcontainer-tmp-${devcontainerId}",
+            "target": "/tmp",
+            "type": "volume"
         }
     ],
     "customizations": {

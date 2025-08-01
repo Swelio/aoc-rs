@@ -1,5 +1,8 @@
-use aoc_web::{adapters::sycamore::App, ports::WasmRender};
+use aoc_web::{
+    adapters::{app::App, solver::WebSolver},
+    ports::WasmRender,
+};
 
 fn main() {
-    App.render();
+    App::new(WebSolver).render();
 }

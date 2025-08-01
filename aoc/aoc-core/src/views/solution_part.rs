@@ -12,6 +12,7 @@ use crate::components::Solution;
     serde::Deserialize,
     derive_more::Constructor,
     derive_more::AsRef,
+    derive_more::Display,
 )]
 pub struct SolutionPart(String);
 

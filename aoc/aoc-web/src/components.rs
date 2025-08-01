@@ -1,1 +1,1 @@
-pub mod sycamore;
+pub mod challenge;

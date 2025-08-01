@@ -1,7 +1,7 @@
 use sycamore::prelude::*;
 
 #[component]
-pub fn ChallengeResolution() -> View {
+pub fn LoadingChallenge() -> View {
     view! {
         p { "Solving..." }
     }

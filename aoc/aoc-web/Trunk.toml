@@ -18,15 +18,5 @@ ignore = [] # Paths to ignore.
 
 [tools]
 sass = "1.89.2"
+tailwindcss = "4.1.11"
 wasm-bindgen = "0.2.100"
-
-[[hooks]]
-stage = "pre_build"
-command = "bun"
-command_arguments = [
-    "x",
-    "tailwindcss", 
-    "--minify",
-    "--input=./index.css",
-    "--output=./bundle.css"
-]

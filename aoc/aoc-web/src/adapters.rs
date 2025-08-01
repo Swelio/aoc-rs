@@ -1,1 +1,2 @@
-pub mod sycamore;
+pub mod app;
+pub mod solver;
