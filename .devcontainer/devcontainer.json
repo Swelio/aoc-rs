@@ -25,9 +25,9 @@
             "type": "bind"
         },
         {
-            "source": "/tmp/devcontainer-tmp-${devcontainerId}",
+            "source": "devcontainer-tmp-${devcontainerId}",
             "target": "/tmp",
-            "type": "bind"
+            "type": "volume"
         }
     ],
     "customizations": {
