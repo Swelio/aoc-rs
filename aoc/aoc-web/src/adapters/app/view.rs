@@ -1,13 +1,9 @@
-use std::collections::HashMap;
-
-use sycamore::{futures::spawn_local, prelude::*};
+use sycamore::prelude::*;
 use web_sys::wasm_bindgen::JsValue;
 
 use crate::{
-    adapters::app::challenge::ChallengeView,
-    components::challenge::{ChallengeId, ChallengeInput},
-    error::WebResult,
-    ports::SolvingService,
+    adapters::app::challenge::ChallengeView, archetypes::Challenge,
+    components::challenge::ChallengeInput, ports::SolvingService,
 };
 
 #[component]
@@ -15,35 +11,7 @@ pub fn AppView<S>(solver: S) -> View
 where
     S: SolvingService,
 {
-    let challenges: Signal<HashMap<ChallengeId, ChallengeInput>> = create_signal(HashMap::new());
-    let solutions: Signal<HashMap<ChallengeId, ReadSignal<Option<WebResult<_>>>>> =
-        create_signal(HashMap::new());
-    let derived_solutions = move || {
-        challenges
-            .get_clone()
-            .into_iter()
-            .map(|(id, input)| {
-                if let Some(solution) = solutions.with(|solutions| solutions.get(&id).cloned()) {
-                    return (id, solution.to_owned());
-                }
-
-                let (getter, setter) = create_signal(None).split();
-                solutions.update(|solutions| solutions.insert(id, getter));
-
-                spawn_local({
-                    let solver = solver.to_owned();
-
-                    async move {
-                        let solution = solver.solve(input).await;
-                        setter(Some(solution));
-                    }
-                });
-
-                (id, getter)
-            })
-            .collect::<Vec<_>>()
-    };
-
+    let challenges = create_signal(Vec::new());
     let dialog_ref = create_node_ref();
     let open_challenge_form = move |_| {
         let dialog_js: JsValue = dialog_ref.get().into();
@@ -53,10 +21,9 @@ where
 
     let challenge_input = create_signal(String::default());
     let submit_challenge = move |_| {
-        challenges.update(|challenges| {
-            let id = ChallengeId::default();
-            challenges.insert(id, ChallengeInput::new(challenge_input.take()));
-        });
+        let input = ChallengeInput::new(challenge_input.take());
+        let challenge = Challenge::new(input, solver.clone());
+        challenges.update(|challenges| challenges.push(challenge));
     };
 
     view! {
@@ -71,9 +38,11 @@ where
             }
             ul(class="challenges") {
                 Keyed(
-                    list=derived_solutions,
+                    list=challenges,
                     view={
-                        |(_, solution)| {
+                        |challenge| {
+                            let solution = challenge.get_solution();
+
                             view! {
                                 li(class="challenge-item") {
                                     ChallengeView(solution=solution)
@@ -81,7 +50,7 @@ where
                             }
                         }
                     },
-                    key=|(id, _)| *id
+                    key=|challenge| challenge.get_id()
                 )
             }
         }
