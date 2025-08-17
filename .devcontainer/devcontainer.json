@@ -8,7 +8,8 @@
     "runArgs": [
         "--cap-drop=ALL",
         "--read-only",
-        "--security-opt=no-new-privileges"
+        "--security-opt=no-new-privileges",
+        "--tmpfs=/tmp:rw,exec,nosuid,nodev"
     ],
     "remoteEnv": {
         "CARGO_HOME": "/home/dev/.cargo"
@@ -23,11 +24,6 @@
             "source": "${localWorkspaceFolder}",
             "target": "/workspace",
             "type": "bind"
-        },
-        {
-            "source": "devcontainer-tmp-${devcontainerId}",
-            "target": "/tmp",
-            "type": "volume"
         }
     ],
     "customizations": {
