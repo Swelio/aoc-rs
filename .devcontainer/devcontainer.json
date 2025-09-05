@@ -1,7 +1,7 @@
 {
     "name": "aoc-rs",
-    "image": "ghcr.io/swelio/dev-images/base/rust-wasm:latest",
-    "containerUser": "dev",
+    "image": "ghcr.io/swelio/dev-images/base/rust:24.04-tauri",
+    "containerUser": "developer",
     "workspaceFolder": "/workspace",
     "overrideCommand": true,
     "privileged": false,
@@ -12,12 +12,12 @@
         "--tmpfs=/tmp:rw,exec,nosuid,nodev"
     ],
     "remoteEnv": {
-        "CARGO_HOME": "/home/dev/.cargo"
+        "CARGO_HOME": "/home/developer/.cargo"
     },
     "mounts": [
         {
             "source": "devcontainer-home-${devcontainerId}",
-            "target": "/home/dev",
+            "target": "/home/developer",
             "type": "volume"
         },
         {
